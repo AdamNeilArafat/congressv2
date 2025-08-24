@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Fetch headshots (optional)
+        run: node scripts/get-photos.mjs || true
+
       # if package.json is optional in this repo, keep the || true
       - name: Install (best effort)
         run: npm ci || true
