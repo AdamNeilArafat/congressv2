@@ -1,72 +1,50 @@
 name: Refresh data
-
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   schedule:
-    # 09:17 UTC ≈ 02:17 PT (adjust if you want)
-    - cron: "17 9 * * *"
+    - cron: '17 9 * * *'   # daily 09:17 UTC
 
 permissions:
-  contents: write   # needed to push the refreshed JSON
+  contents: write   # <-- lets the workflow commit JSON files
 
 jobs:
-  build:
+  refresh:
     runs-on: ubuntu-latest
-    concurrency:
-      group: refresh-data
-      cancel-in-progress: false
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # If you have package.json, uncomment the next line:
+      # - run: npm ci
 
-      - name: Fetch headshots (optional)
-        run: node scripts/get-photos.mjs || true
-
-      # if package.json is optional in this repo, keep the || true
-      - name: Install (best effort)
-        run: npm ci || true
-
-      # 1) seed votes from /Bills into data/votes.json
-      - name: Seed votes from Bills
-        run: node scripts/seed-votes-from-bills.mjs
-
-      # 2) members.json
+      # Pull members
       - name: Pull members
         run: node scripts/pull-members.mjs
 
-      # 3) roll-call offenders (only affects bills that have congress+roll fields)
-      - name: Pull votes (offenders)
+      # Fill offenders from real roll calls (uses votes.json "rc")
+      - name: Pull votes
         run: node scripts/pull-votes.mjs
         env:
           CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
 
-      # 4) donors/receipts aggregates
-      - name: Pull donors/receipts
+      # Donor aggregates (skips if no secret)
+      - name: Pull donors
+        if: ${{ secrets.FEC_API_KEY != '' }}
         run: node scripts/pull-donors.mjs
         env:
           FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
-          CYCLE: "2026"
+          CYCLE: 2026
 
-      # 5) build alignment index
+      # Build simple alignment score (tolerant if you haven't added it yet)
       - name: Build alignments
-        run: node scripts/build-alignments.mjs
+        run: node scripts/build-alignments.mjs || true
 
-      # 6) sanity check
-      - name: Validate
-        run: npm run validate || true
-
-      # 7) commit only if data changed
       - name: Commit refreshed data
         run: |
-          set -e
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/*.json || true
-          git diff --quiet --cached || git commit -m "refresh data"
+          git diff --cached --quiet || git commit -m "refresh data"
           git push
