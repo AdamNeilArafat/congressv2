@@ -54,7 +54,7 @@
       object-fit:cover; background:#e6edf3; display:block; margin:.6rem auto; border-radius:10px;
     }
 
-    /* Badge chips borrowed from financial-alignments */
+    /* Badge chips */
     .badge-chip{display:inline-flex; align-items:center; gap:.35rem; padding:.15rem .45rem; border-radius:999px; border:1px solid rgba(13,59,102,.22); font-weight:700; font-size:.72rem; margin:.15rem .15rem 0 0}
     .badge-chip i{font-size:.85rem}
     .chip-danger{background:#ffecec; border-color:#ffd0d0; color:#8d0a0a}
@@ -87,7 +87,7 @@
   </div>
 </nav>
 
-<!-- HERO (no plan section; straight to wall) -->
+<!-- HERO -->
 <header class="hero">
   <div class="container text-center">
     <h1 class="mb-2">Wall of Shame</h1>
@@ -121,7 +121,7 @@
   <p id="emptyState" class="text-center text-muted mt-3" hidden>No matches. Try clearing filters.</p>
 </main>
 
-<!-- RECEIPT / PROFILE MODAL (with tabs) -->
+<!-- PROFILE MODAL -->
 <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptTitle" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
@@ -168,7 +168,7 @@
               </div>
               <div class="col-md-6">
                 <div class="p-3 border rounded-3">
-                  <div class="small text-muted">In‑District vs Out‑District</div>
+                  <div class="small text-muted">In-District vs Out-District</div>
                   <div class="h5" id="fin-geo">—</div>
                   <div class="small text-muted">Flagged if out &gt; in</div>
                 </div>
@@ -198,9 +198,19 @@
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-        <div class="d-flex gap-2">
-          <button id="shareBtn" class="btn btn-outline-dark btn-sm" type="button"><i class="fa-solid fa-share-nodes me-1"></i>Share</button>
-          <a id="openBlueprint" class="btn btn-danger btn-sm" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines me-1"></i>Open blueprint</a>
+        <!-- Share dropup -->
+        <div class="dropup">
+          <button id="shareBtn" class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-share-nodes me-1"></i>Share
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" id="shareMenu">
+            <li><a class="dropdown-item" href="#" data-share="copy">Copy link</a></li>
+            <li><a class="dropdown-item" href="#" data-share="facebook">Facebook</a></li>
+            <li><a class="dropdown-item" href="#" data-share="reddit">Reddit</a></li>
+            <li><a class="dropdown-item" href="#" data-share="bluesky">Bluesky</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-share="download">Download snapshot (PNG)</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -215,6 +225,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 <script>
 /** ---------------------------------------------------------
  *  DATA LOADERS + HELPERS
@@ -323,13 +334,12 @@ function computeBadges(dRec, aRec, vRec){
   const ti = topIndustry(dRec);
   if(ti.key !== '—' && ti.share >= THRESH.INDUSTRY_DOMINATE){ chips.push(['chip-danger','fa-industry','Dominant industry: '+ti.key]); }
 
-  // ---- Alignment (fallback if vote-based score is missing)
+  // Alignment badge (with fallback if no vote-based score)
   let alignScore = (typeof vRec?.donor_alignment_index === 'number') ? vRec.donor_alignment_index : null;
   if(alignScore === null){
     const total = in$ + out$;
     const outShare = total ? out$ / total : 0;
     const indShare = ti.key==='—' ? 0 : ti.share;
-    // weighted heuristic: adjust weights as you like
     alignScore = Math.min(1, 0.5*(pacPct||0) + 0.3*outShare + 0.2*indShare);
   }
   if(alignScore >= THRESH.ALIGN_HIGH){ chips.push(['chip-danger','fa-scale-balanced',`Donor alignment: ${pct(alignScore)}%`]); }
@@ -337,7 +347,6 @@ function computeBadges(dRec, aRec, vRec){
   if(aRec && Array.isArray(aRec.badges)){ aRec.badges.forEach(b=> chips.push(['chip-danger','fa-award', b.label || b.key])); }
   return chips;
 }
-
 
 /** ---------------------------------------------------------
  *  RENDERING
@@ -370,11 +379,10 @@ function buildFilters(){
 
 function cardHTML(o){
   const isOffender = !!o.billKey;
-  const award = isOffender ? (o.award || '') : '';
   const harm  = isOffender ? (o.meaning || '') : '';
-  const encodedHref = isOffender ? encodeURI(o.href||'#') : '#';
 
-  const chipsHTML = (o.badges||[]).map(([cls,icon,label]) => `<span class="badge-chip ${cls}" title="${label}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
+  const chipsHTML = (o.badges||[]).map(([cls,icon,label]) =>
+    `<span class="badge-chip ${cls}" title="${label}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
 
   return `
   <article class="card-person"
@@ -382,15 +390,15 @@ function cardHTML(o){
            data-party="${o.partyCode||''}"
            data-state="${o.state}"
            data-name="${o.name.toLowerCase()}">
-<img
-  class="avatar"
-  src="${('/images/' + o.bioguide + '.jpg')}"
-  alt="${o.name}"
-  loading="lazy"
-  decoding="async"
-  onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='https://unitedstates.github.io/images/congress/225x275/${o.bioguide}.jpg'}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
-/>
-
+    <img
+      class="avatar"
+      crossorigin="anonymous"
+      src="${('/images/' + o.bioguide + '.jpg')}"
+      alt="${o.name}"
+      loading="lazy"
+      decoding="async"
+      onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='https://unitedstates.github.io/images/congress/225x275/${o.bioguide}.jpg'}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
+    />
     <div class="body">
       <div class="name">${o.name}</div>
       <div class="meta">${o.chamber==='senate'?'Senate':'House'} • ${o.state}${o.district?('-'+o.district):''} • ${o.partyLabel||''}</div>
@@ -399,7 +407,6 @@ function cardHTML(o){
       <div class="mt-2 d-flex gap-2 flex-wrap">
         <button class="btn btn-outline-dark btn-sm" type="button"
                 data-open-profile='${JSON.stringify({bio:o.bioguide,bill:o.billKey||""}).replace(/"/g,"&quot;")}'><i class="fa-solid fa-id-card-clip me-1"></i>Open profile</button>
-        ${isOffender ? `<a class="btn btn-danger btn-sm" href="${encodedHref}" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines me-1"></i>Open blueprint</a>` : ``}
       </div>
     </div>
   </article>`;
@@ -469,6 +476,63 @@ function render(){
   grid.removeAttribute('aria-busy');
 }
 
+function cardPermalink(member){
+  const url = new URL(location.href);
+  url.hash = ''; url.search = ''; url.pathname = location.pathname;
+  const deeplink = `#?bill=${encodeURIComponent(member.billKey||'')}&bio=${encodeURIComponent(member.bioguide)}`;
+  return url.origin + url.pathname + deeplink;
+}
+
+async function downloadSnapshot(member){
+  // snapshot modal content for social (face + badges + panels)
+  const src = document.querySelector('#receiptModal .modal-content');
+  const node = src.cloneNode(true);
+  node.querySelector('.modal-footer')?.remove(); // remove controls
+  node.style.width = '800px';
+  node.style.maxWidth = '800px';
+  node.style.padding = '16px';
+  node.style.background = '#fff';
+  node.style.color = '#122133';
+  node.style.position = 'fixed';
+  node.style.left = '-9999px';
+  document.body.appendChild(node);
+  const canvas = await html2canvas(node, {scale: 2, backgroundColor:'#fff', useCORS:true});
+  document.body.removeChild(node);
+
+  const a = document.createElement('a');
+  a.download = `${member.name.replace(/\s+/g,'_')}_wall-card.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+async function handleShare(action, member){
+  const shareUrl = cardPermalink(member);
+  const title = `${member.name} — ${member.partyLabel} ${member.state}${member.district?('-'+member.district):''}`;
+
+  if(action==='download'){ return downloadSnapshot(member); }
+  if(action==='copy'){
+    try{ await navigator.clipboard.writeText(shareUrl); }catch(_){}
+    return;
+  }
+
+  // native web share (mobile -> IG/TikTok via OS sheet)
+  if(action==='native'){
+    if(navigator.share){
+      try{ await navigator.share({title, url: shareUrl}); }catch(_){}
+      return;
+    }
+  }
+
+  const OPEN = (u)=> window.open(u, '_blank', 'noopener,noreferrer');
+  switch(action){
+    case 'facebook': OPEN(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`); break;
+    case 'reddit':   OPEN(`https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}`); break;
+    case 'bluesky':  OPEN(`https://bsky.app/intent/compose?text=${encodeURIComponent(title + ' ' + shareUrl)}`); break;
+    default:
+      try{ await navigator.clipboard.writeText(shareUrl);}catch(_){}
+  }
+}
+
 function openProfile(bio, billKey){
   const member = Object.values(INDEX).find(r=>r.bioguide===bio && (!billKey || r.billKey===billKey)) ||
                  Object.values(INDEX).find(r=>r.bioguide===bio);
@@ -476,31 +540,32 @@ function openProfile(bio, billKey){
 
   // header
   document.getElementById('receiptTitle').textContent = 'Profile';
-  const img = document.getElementById('receiptPhoto'); img.src = member.photo; img.alt = member.name;
+  const img = document.getElementById('receiptPhoto');
+  img.crossOrigin = 'anonymous';
+  img.src = member.photo;
+  img.alt = member.name;
   document.getElementById('receiptName').textContent = member.name;
-  document.getElementById('receiptMeta').textContent = `${member.chamber==='senate'?'Senate':'House'} • ${member.state}${member.district?('-'+member.district):''} • ${member.partyLabel||''}`;
+  document.getElementById('receiptMeta').textContent =
+    `${member.chamber==='senate'?'Senate':'House'} • ${member.state}${member.district?('-'+member.district):''} • ${member.partyLabel||''}`;
 
   // badges row
   const badgesRow = document.getElementById('receiptBadgesRow');
-  badgesRow.innerHTML = (member.badges||[]).map(([cls,icon,label])=>`<span class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
+  badgesRow.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
+    `<span class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
 
   // receipts pane
   const rc = document.getElementById('receiptContent');
   if(member.billKey){
     const b = VOTES[member.billKey] || {};
-    const encodedHref = encodeURI(b.href||'#');
     rc.innerHTML = `
       <div class="d-flex align-items-center gap-2 flex-wrap">
         <span class="chip">Bill: ${b.title||''}</span>
         <span class="chip no">${member.vote||'NO'} vote</span>
       </div>
       <div class="mt-2">${b.meaning||''}</div>
-      <div class="mt-2 small"><span class="fw-semibold">Blueprint:</span> <a href="${encodedHref}" target="_blank" rel="noopener">${b.title||'Open'}</a></div>
     `;
-    document.getElementById('openBlueprint').href = encodedHref;
   }else{
     rc.innerHTML = `<div class="text-muted">No specific receipt selected. Use the Wall filters to open a vote receipt for this Member.</div>`;
-    document.getElementById('openBlueprint').href = '#';
   }
 
   // financials pane
@@ -516,7 +581,7 @@ function openProfile(bio, billKey){
   document.getElementById('fin-geo').textContent = `${money(d.in_state_dollars||0)} in / ${money(d.out_state_dollars||0)} out`;
   document.getElementById('fin-industry').textContent = topKey==='—' ? '—' : `${topKey} (${pct(topShare)}%)`;
 
-  // Vote Alignment Index (fallback if not in ALIGN)
+  // Vote Alignment Index (with fallback)
   const in$ = d.in_state_dollars||0, out$ = d.out_state_dollars||0;
   const totalGeo = in$ + out$;
   const outShare = totalGeo ? out$ / totalGeo : 0;
@@ -524,29 +589,19 @@ function openProfile(bio, billKey){
                    : Math.min(1, 0.5*(d.pac_pct||0) + 0.3*outShare + 0.2*topShare);
   document.getElementById('fin-align').textContent = `${pct(alignScore)}%`;
 
-
   // badges pane (detailed list)
   const bl = document.getElementById('badgesList');
-  bl.innerHTML = (member.badges||[]).map(([cls,icon,label])=>`
-    <div class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</div>
-  `).join(' ') || '<div class="text-muted">No badges earned.</div>';
+  bl.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
+    `<div class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</div>`
+  ).join(' ') || '<div class="text-muted">No badges earned.</div>';
 
-  // share link
-  const url = new URL(location.href);
-  url.hash = ''; url.search = ''; url.pathname = location.pathname;
-  const deeplink = `#?bill=${encodeURIComponent(member.billKey||'')}&bio=${encodeURIComponent(member.bioguide)}`;
-  const shareBtn = document.getElementById('shareBtn');
-  shareBtn.onclick = async () => {
-    const shareUrl = url.origin + url.pathname + deeplink;
-    try{
-      if(navigator.share){
-        await navigator.share({title:'Wall of Shame — Profile', text:member.name, url: shareUrl});
-      }else{
-        await navigator.clipboard.writeText(shareUrl);
-        shareBtn.textContent = 'Link copied';
-        setTimeout(()=> shareBtn.textContent = 'Share', 1200);
-      }
-    }catch(e){}
+  // Share menu bindings (uses current member)
+  document.querySelectorAll('#shareMenu [data-share]').forEach(a=>{
+    a.onclick = (e)=>{ e.preventDefault(); handleShare(a.getAttribute('data-share'), member); };
+  });
+  // Main button: try native share (mobile → IG/TikTok via OS sheet)
+  document.getElementById('shareBtn').onclick = async () => {
+    if (navigator.share) { await handleShare('native', member); }
   };
 
   // show modal
