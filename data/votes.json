@@ -4,8 +4,10 @@
     "short": "Clean Campaigns",
     "award": "Dark Money Denier",
     "meaning": "Voted to keep big money in elections.",
+
     "rc": { "chamber": "house", "congress": 119, "session": 1, "roll": 42 },
-    "offenders_vote": ["no","nay"],
+    "offenders_vote": ["no", "nay"],
+
     "offenders": []
   }
 }
