@@ -11,8 +11,8 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     env:
-      CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}   # used by pull-votes
-      FEC_API_KEY: ${{ secrets.FEC_API_KEY }}             # optional; pull-donors will no-op if empty
+      CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
+      FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
       CYCLE: 2026
     steps:
       - uses: actions/checkout@v4
