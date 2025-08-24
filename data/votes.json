@@ -1,12 +1,11 @@
 {
-  "clean-campaigns-rc42": {
+  "house-119-1-rc42": {
     "title": "Clean Campaigns and Elections Bill (2027)",
     "short": "Clean Campaigns",
-    "href": "/Bills/Clean Campaigns and Elections Bill (2027).html",
     "award": "Dark Money Denier",
     "meaning": "Voted to keep big money in elections.",
-    "offenders": [
-      {"bioguide":"A000360","vote":"NO"}
-    ]
+    "rc": { "chamber": "house", "congress": 119, "session": 1, "roll": 42 },
+    "offenders_vote": ["no","nay"],
+    "offenders": []
   }
 }
