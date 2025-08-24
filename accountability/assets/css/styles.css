@@ -1,0 +1,16 @@
+
+:root{
+  --primary:#0d3b66; --accent:#0b6e4f; --text:#1e293b;
+}
+body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, "Noto Sans", sans-serif; color:var(--text);}
+.navbar-brand{color:var(--primary)!important}
+.card{border-radius: 1rem; box-shadow: 0 6px 20px rgba(0,0,0,.05);}
+.card img{border-top-left-radius:1rem;border-top-right-radius:1rem;object-fit:cover;height:180px;width:100%}
+.badge-soft{padding:.35rem .6rem;border-radius:999px}
+.badge-soft.red{background:#fde2e2;color:#c0392b}
+.badge-soft.amber{background:#fff3cd;color:#8a6d3b}
+.badge-soft.green{background:#e3fcec;color:#1b5e20}
+.filter-bar{position:sticky;top:60px;z-index:10;background:#fff;border-bottom:1px solid #eee}
+.table-fit{white-space:nowrap}
+small.muted{color:#64748b}
+.footer{color:#64748b}
