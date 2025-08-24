@@ -397,7 +397,7 @@ function cardHTML(o){
       alt="${o.name}"
       loading="lazy"
       decoding="async"
-      onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='https://unitedstates.github.io/images/congress/225x275/${o.bioguide}.jpg'}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
+      onerror="const b='${o.bioguide}';if(!this.dataset.s){this.dataset.s='1';this.src='/images/Image'+b+'.jpg';}else if(this.dataset.s==='1'){this.dataset.s='2';this.src='https://unitedstates.github.io/images/congress/225x275/'+b+'.jpg';}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
     />
     <div class="body">
       <div class="name">${o.name}</div>
@@ -412,40 +412,44 @@ function cardHTML(o){
   </article>`;
 }
 
+/* ---- NEW: de-dup join (one card per Member; offenders overwrite base) */
 function joinData(){
-  INDEX = [];
-  // neutral rows
-  for(const m of Object.values(MEMBERS)){
+  const byBio = {};
+
+  // base rows
+  for (const m of Object.values(MEMBERS)) {
     const d = DONORS[m.bioguide] || {};
     const a = AWARDS[m.bioguide] || null;
     const v = ALIGN[m.bioguide]  || null;
-    INDEX.push({
+    byBio[m.bioguide] = {
       bioguide:m.bioguide, name:m.name,
       partyCode:m.partyCode, partyLabel:m.partyLabel,
       chamber:m.chamber, state:m.state, district:m.district, photo:m.photo,
       billKey:'', billTitle:'', billShort:'', href:'', award:'', meaning:'', vote:'',
       donors:d, align:v, awards:a, badges:computeBadges(d,a,v)
-    });
+    };
   }
-  // offenders
-  for(const [billKey, b] of Object.entries(VOTES)){
-    const offenders = b.offenders || [];
-    for(const row of offenders){
-      const m = MEMBERS[row.bioguide];
-      if(!m) continue;
+
+  // offenders overlay
+  for (const [billKey, b] of Object.entries(VOTES)) {
+    for (const row of (b.offenders||[])) {
+      const m = MEMBERS[row.bioguide]; if (!m) continue;
       const d = DONORS[m.bioguide] || {};
       const a = AWARDS[m.bioguide] || null;
       const v = ALIGN[m.bioguide]  || null;
-      INDEX.push({
+      byBio[m.bioguide] = {
         bioguide:m.bioguide, name:m.name,
         partyCode:m.partyCode, partyLabel:m.partyLabel,
         chamber:m.chamber, state:m.state, district:m.district, photo:m.photo,
-        billKey, billTitle:b.title, billShort:(b.short||b.title), href:b.href, award:b.award, meaning:b.meaning, vote:row.vote || 'NO',
+        billKey, billTitle:b.title, billShort:(b.short||b.title), href:b.href,
+        award:b.award, meaning:b.meaning, vote:row.vote || 'NO',
         donors:d, align:v, awards:a, badges:computeBadges(d,a,v)
-      });
+      };
     }
   }
-  INDEX.sort((a,b)=> ((b.billKey?1:0) - (a.billKey?1:0)) || a.name.localeCompare(b.name));
+
+  INDEX = Object.values(byBio)
+    .sort((a,b)=> ((b.billKey?1:0)-(a.billKey?1:0)) || a.name.localeCompare(b.name));
 }
 
 function render(){
@@ -484,10 +488,9 @@ function cardPermalink(member){
 }
 
 async function downloadSnapshot(member){
-  // snapshot modal content for social (face + badges + panels)
   const src = document.querySelector('#receiptModal .modal-content');
   const node = src.cloneNode(true);
-  node.querySelector('.modal-footer')?.remove(); // remove controls
+  node.querySelector('.modal-footer')?.remove();
   node.style.width = '800px';
   node.style.maxWidth = '800px';
   node.style.padding = '16px';
@@ -514,15 +517,12 @@ async function handleShare(action, member){
     try{ await navigator.clipboard.writeText(shareUrl); }catch(_){}
     return;
   }
-
-  // native web share (mobile -> IG/TikTok via OS sheet)
   if(action==='native'){
     if(navigator.share){
       try{ await navigator.share({title, url: shareUrl}); }catch(_){}
       return;
     }
   }
-
   const OPEN = (u)=> window.open(u, '_blank', 'noopener,noreferrer');
   switch(action){
     case 'facebook': OPEN(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`); break;
@@ -542,8 +542,15 @@ function openProfile(bio, billKey){
   document.getElementById('receiptTitle').textContent = 'Profile';
   const img = document.getElementById('receiptPhoto');
   img.crossOrigin = 'anonymous';
-  img.src = member.photo;
   img.alt = member.name;
+  img.src = `/images/${member.bioguide}.jpg`;
+  img.onerror = function(){
+    const b = member.bioguide;
+    if(!this.dataset.s){ this.dataset.s='1'; this.src = `/images/Image${b}.jpg`; }
+    else if(this.dataset.s==='1'){ this.dataset.s='2'; this.src = `https://unitedstates.github.io/images/congress/225x275/${b}.jpg`; }
+    else { this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22150%22><rect width=%22120%22 height=%22150%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23666%22>NO IMAGE</text></svg>'; }
+  };
+
   document.getElementById('receiptName').textContent = member.name;
   document.getElementById('receiptMeta').textContent =
     `${member.chamber==='senate'?'Senate':'House'} • ${member.state}${member.district?('-'+member.district):''} • ${member.partyLabel||''}`;
@@ -595,11 +602,10 @@ function openProfile(bio, billKey){
     `<div class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</div>`
   ).join(' ') || '<div class="text-muted">No badges earned.</div>';
 
-  // Share menu bindings (uses current member)
+  // Share menu bindings
   document.querySelectorAll('#shareMenu [data-share]').forEach(a=>{
     a.onclick = (e)=>{ e.preventDefault(); handleShare(a.getAttribute('data-share'), member); };
   });
-  // Main button: try native share (mobile → IG/TikTok via OS sheet)
   document.getElementById('shareBtn').onclick = async () => {
     if (navigator.share) { await handleShare('native', member); }
   };
