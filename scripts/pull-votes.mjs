@@ -6,37 +6,58 @@ const KEY = process.env.CONGRESS_API_KEY; // api.data.gov key
 if (!KEY) { console.error("❌ CONGRESS_API_KEY missing"); process.exit(1); }
 
 const BASE = "https://api.congress.gov/v3";
-const nowIso = () => new Date().toISOString();
+const UA = "congressv2/1.0 (AdamNeilArafat/congressv2)";
+const sinceISO = new Date(Date.now() - 60*24*60*60*1000).toISOString(); // last 60d
 
-// Example: last 60 days House & Senate roll calls; map offenders who voted "No"/"Nay" on selected categories you care about
-const since = new Date(Date.now() - 1000*60*60*24*60).toISOString();
-
-async function page(url){
-  const r = await fetch(url);
-  if(!r.ok) throw new Error(`HTTP ${r.status} ${url}`);
+async function getJSON(url, attempt=1){
+  const r = await fetch(url, {
+    headers: {
+      "X-Api-Key": KEY,            // preferred header (still keep query param for safety)
+      "User-Agent": UA,
+      "Accept": "application/json"
+    },
+  });
+  if (!r.ok) {
+    const txt = await r.text().catch(()=> "");
+    // retry transient
+    if ((r.status===429 || r.status>=500) && attempt<3) {
+      const wait = 1000*attempt;
+      console.warn(`⚠️ ${r.status} on ${url} — retrying in ${wait}ms`);
+      await new Promise(res=>setTimeout(res, wait));
+      return getJSON(url, attempt+1);
+    }
+    throw new Error(`HTTP ${r.status} ${url}\n${txt}`);
+  }
   return r.json();
 }
 
 function offendersFromRoll(roll){
-  const res = [];
-  for (const m of roll.votes || []) {
-    const choice = (m.vote || "").toLowerCase();
+  const out = [];
+  for (const v of roll.votes || []) {
+    const choice = (v.vote || "").toLowerCase();
     if (choice==="no" || choice==="nay") {
-      res.push({ bioguide: m.member?.bioguideId, name: m.member?.fullName, party: m.member?.partyName, state: m.member?.stateCode });
+      const m = v.member || {};
+      out.push({
+        bioguide: m.bioguideId || m.bioguide || m.id,
+        name: m.fullName || m.name || "",
+        party: m.partyName || m.party || "",
+        state: m.stateCode || m.state || ""
+      });
     }
   }
-  return res.filter(o=>o.bioguide);
+  return out.filter(x=>x.bioguide);
 }
 
 async function collectChamber(chamber){
   const out = {};
-  const url = `${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(since)}&format=json&api_key=${KEY}`;
-  const data = await page(url);
+  // both header and query carry the key (belt & suspenders)
+  const url = `${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(sinceISO)}&format=json&api_key=${KEY}`;
+  const data = await getJSON(url);
   for (const v of data.votes || []) {
     const id = `${chamber}-${v.congress}-${v.session}-rc${v.rollNumber}`;
     out[id] = {
       title: v.voteQuestion || v.voteDesc || v.bill?.title || "Roll Call",
-      short: v.bill?.number || v.voteQuestion || `RC ${v.rollNumber}`,
+      short: v.bill?.number || `RC ${v.rollNumber}`,
       award: "Recorded Vote",
       meaning: v.voteQuestion || "",
       rc: { chamber, congress: Number(v.congress), session: Number(v.session), roll: Number(v.rollNumber) },
@@ -47,7 +68,15 @@ async function collectChamber(chamber){
   return out;
 }
 
-const votes = { ...(await collectChamber("house")), ...(await collectChamber("senate")) };
-await fs.mkdir("data",{recursive:true});
-await fs.writeFile("data/votes.json", JSON.stringify(votes,null,2));
-console.log(`✅ wrote data/votes.json (${Object.keys(votes).length} roll calls since ${since}) at ${nowIso()}`);
+(async ()=>{
+  const house = await collectChamber("house");
+  const senate = await collectChamber("senate");
+  const votes = { ...house, ...senate };
+
+  await fs.mkdir("data", { recursive:true });
+  await fs.writeFile("data/votes.json", JSON.stringify(votes,null,2));
+  console.log(`✅ wrote data/votes.json (${Object.keys(votes).length} roll calls since ${sinceISO})`);
+})().catch(e=>{
+  console.error("❌ pull-votes failed:", e.message || e);
+  process.exit(1);
+});
