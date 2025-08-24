@@ -5,5 +5,8 @@
   "scripts": {
     "build:data": "node scripts/pull-members.mjs && node scripts/pull-votes.mjs && node scripts/pull-donors.mjs && node scripts/build-alignments.mjs",
     "validate": "node scripts/validate.mjs || true"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
   }
 }

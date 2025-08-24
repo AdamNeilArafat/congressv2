@@ -1,24 +1,30 @@
-# .github/workflows/pages.yml
-name: Deploy site (gh-pages branch)
+name: Deploy site
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 permissions:
-  contents: write   # REQUIRED to push the gh-pages branch
-
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - name: Build (if any)  # optional, you can remove this
-        run: echo "nothing to build"
-      - name: Publish
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .         # deploy repo root
-          force_orphan: true     # clean history on gh-pages
+          path: .
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

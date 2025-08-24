@@ -1,9 +1,1 @@
-{
-  "A000360": {
-    "pac_pct": 0.42,
-    "small_share": 0.13,
-    "in_state_dollars": 125000,
-    "out_state_dollars": 210000,
-    "industries": { "oil_gas": 54000, "pharma": 31000 }
-  }
-}
+{}
