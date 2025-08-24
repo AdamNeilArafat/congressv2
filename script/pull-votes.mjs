@@ -1,118 +1,82 @@
 // scripts/pull-votes.mjs
 import fs from "node:fs/promises";
-import path from "node:path";
 
-// Uses Congress.gov API (needs api.data.gov key)
-// https://api.congress.gov/#/roll-call-vote/getV3RollCallVoteCongressChamberSessionRollCallNumber
 const API_KEY = process.env.CONGRESS_API_KEY;
 if (!API_KEY) {
-  console.error("CONGRESS_API_KEY env var is required (api.data.gov key).");
+  console.error("❌ Missing CONGRESS_API_KEY");
   process.exit(1);
 }
 
-const VOTES_PATH = path.resolve("data/votes.json");
-const nowIso = () => new Date().toISOString();
+// Congress.gov recommends using the api.data.gov proxy for authenticated calls
+// Ref: https://www.loc.gov/apis/additional-apis/congress-dot-gov-api/
+const API_BASE = "https://api.data.gov/congress/v3";
 
-const norm = (s="") => s.toString().trim().toLowerCase();
-const YES = new Set(["yea","aye","yes","y"]);
-const NO  = new Set(["nay","no","n"]);
-const PRESENT = new Set(["present","not voting","nv","present, giving live pair"]);
+// House roll call votes endpoints were added in 2025 (beta → enhanced).
+// We’ll use the list endpoint and follow pagination.next.
+// Blog refs: May 13, 2025; Aug 4, 2025. 
+// https://blogs.loc.gov/law/2025/05/introducing-house-roll-call-votes-in-the-congress-gov-api/
+// https://blogs.loc.gov/law/2025/08/congress-gov-enhanced-access-to-house-roll-call-votes-is-now-available/
 
-function normalizeVoteLabel(v) {
-  const x = norm(v);
-  if (YES.has(x)) return "yea";
-  if (NO.has(x))  return "nay";
-  if (PRESENT.has(x)) return "present";
-  return x || "unknown";
+const fromISO = process.env.FROM || new Date(Date.now() - 1000*60*60*24*30).toISOString(); // default last 30 days
+const toISO   = process.env.TO   || new Date().toISOString();
+
+function buildUrl(url = null) {
+  if (url) return url; // already a fully-qualified pagination.next URL
+  const u = new URL(`${API_BASE}/house/roll-call-votes`);
+  u.searchParams.set("fromDateTime", fromISO);
+  u.searchParams.set("toDateTime", toISO);
+  u.searchParams.set("format", "json");
+  u.searchParams.set("limit", "250");
+  u.searchParams.set("api_key", API_KEY);     // ✅ only api_key — no authkey
+  return u.toString();
 }
 
-function offendersMatcher(config) {
-  // offenders_vote can be "no" | "nay" | "yea" | ["no","nay"] etc.
-  const arr = Array.isArray(config) ? config : [config];
-  const want = new Set(arr.map(normalizeVoteLabel));
-  return (actualVote) => want.has(normalizeVoteLabel(actualVote));
-}
+async function fetchAllVotes() {
+  let url = buildUrl();
+  const all = [];
+  const seen = new Set();
 
-async function fetchRollCall({congress, chamber, session, roll}) {
-  const url = `https://api.congress.gov/v3/roll-call-vote/${congress}/${chamber}/${session}/${roll}?api_key=${API_KEY}`;
-  const r = await fetch(url, { headers: { "accept": "application/json" }});
-  if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
-  const j = await r.json();
+  while (url) {
+    const res = await fetch(url, { redirect: "follow" });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`HTTP ${res.status} on ${url}\n${text}`);
+    }
+    const json = await res.json();
 
-  // Congress.gov shape (as of 2024/2025):
-  // j.rollCallVote.members.member[] with fields: bioguideId, voteCast, ...
-  const members =
-    j?.rollCallVote?.members?.member
-    || j?.rollCallVote?.members      // sometimes already an array
-    || j?.results?.votes?.vote?.positions
-    || [];
-
-  // Map into a simple { bio, vote }
-  return members
-    .map(m => {
-      const bio = m.bioguideId || m.bioguide_id || m.member_id || m.id;
-      const vote = m.voteCast || m.vote_position || m.vote || m.position || m?.["@attributes"]?.vote;
-      return bio ? { bioguide: bio, vote: vote || "" } : null;
-    })
-    .filter(Boolean);
-}
-
-async function main() {
-  // 1) load current file
-  const raw = await fs.readFile(VOTES_PATH, "utf8").catch(()=> "{}");
-  const votes = JSON.parse(raw || "{}");
-
-  let touched = 0;
-
-  // 2) iterate each vote that has an rc pointer
-  for (const [key, item] of Object.entries(votes)) {
-    const rc = item.rc;
-    if (!rc || !rc.congress || !rc.session || !rc.chamber || !rc.roll) {
-      // no rollcall pointer → skip
-      continue;
+    // Normalize where items live; adjust if schema differs
+    const items = json?.votes ?? json?.results ?? json?.data ?? [];
+    for (const v of items) {
+      // de-dupe by a stable key if present
+      const key = v?.rollCallNumber
+        ? `${v.congress}-${v.session}-${v.rollCallNumber}`
+        : JSON.stringify(v).slice(0,200);
+      if (!seen.has(key)) {
+        seen.add(key);
+        all.push(v);
+      }
     }
 
-    console.log(`→ ${key}: fetching roll call ${rc.chamber} ${rc.congress}-${rc.session} #${rc.roll}`);
-    let roster;
-    try {
-      roster = await fetchRollCall(rc);
-    } catch (e) {
-      console.error(`   FAILED to fetch: ${e.message}`);
-      continue;
+    // Follow pagination.next (exact field name per API docs)
+    url = json?.pagination?.next || null;
+    // Ensure next carries api_key if API returns bare URL
+    if (url && !url.includes("api_key=")) {
+      const u = new URL(url);
+      u.searchParams.set("api_key", API_KEY);
+      url = u.toString();
     }
-
-    const isOffender = offendersMatcher(item.offenders_vote || ["no","nay"]);
-    const offenders = roster
-      .filter(r => isOffender(r.vote))
-      .map(r => ({ bioguide: r.bioguide, vote: r.vote.toUpperCase() }));
-
-    // write back offenders + a couple nice-to-have fields
-    item.offenders = offenders;
-    item.updatedAt = nowIso();
-    // Optional: add a public vote URL (nice for debugging)
-    if (rc.chamber === "senate") {
-      const pad = String(rc.roll).padStart(5, "0");
-      item.vote_url = `https://www.senate.gov/legislative/LIS/roll_call_votes/vote${rc.congress}${rc.session}/vote_${rc.congress}_${rc.session}_${pad}.htm`;
-    } else if (rc.chamber === "house") {
-      // Clerk uses year-based URLs; Congress/session→year is approximate, so omit if unsure.
-      item.vote_url = `https://api.congress.gov/v3/roll-call-vote/${rc.congress}/${rc.chamber}/${rc.session}/${rc.roll}`;
-    }
-
-    votes[key] = item;
-    console.log(`   offenders: ${offenders.length}`);
-    touched++;
   }
-
-  // 3) save file (pretty)
-  if (touched) {
-    await fs.writeFile(VOTES_PATH, JSON.stringify(votes, null, 2));
-    console.log(`✅ Updated ${touched} vote(s) in ${VOTES_PATH}`);
-  } else {
-    console.log("No votes updated.");
-  }
+  return all;
 }
 
-main().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+(async () => {
+  try {
+    const votes = await fetchAllVotes();
+    await fs.mkdir("data", { recursive: true });
+    await fs.writeFile("data/votes.json", JSON.stringify(votes, null, 2));
+    console.log(`✅ Pulled ${votes.length} votes → data/votes.json`);
+  } catch (err) {
+    console.error(`❌ pull-votes failed: ${err.message}`);
+    process.exit(1);
+  }
+})();
