@@ -5,39 +5,30 @@ on:
     - cron: '17 9 * * *'   # daily 09:17 UTC
 
 permissions:
-  contents: write   # <-- lets the workflow commit JSON files
+  contents: write
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    env:
+      CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}   # used by pull-votes
+      FEC_API_KEY: ${{ secrets.FEC_API_KEY }}             # optional; pull-donors will no-op if empty
+      CYCLE: 2026
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
 
-      # If you have package.json, uncomment the next line:
-      # - run: npm ci
-
-      # Pull members
       - name: Pull members
         run: node scripts/pull-members.mjs
 
-      # Fill offenders from real roll calls (uses votes.json "rc")
-      - name: Pull votes
+      - name: Pull votes (official roll calls)
         run: node scripts/pull-votes.mjs
-        env:
-          CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
 
-      # Donor aggregates (skips if no secret)
-      - name: Pull donors
-        if: ${{ secrets.FEC_API_KEY != '' }}
+      - name: Pull donors (no-op if no FEC key)
         run: node scripts/pull-donors.mjs
-        env:
-          FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
-          CYCLE: 2026
 
-      # Build simple alignment score (tolerant if you haven't added it yet)
       - name: Build alignments
         run: node scripts/build-alignments.mjs || true
 
