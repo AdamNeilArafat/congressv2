@@ -506,18 +506,24 @@ function openProfile(bio, billKey){
   // financials pane
   const d = member.donors || {};
   const v = member.align || {};
-  const ti = (function(){
-    const entries = Object.entries(d.industries||{});
-    if(!entries.length) return ['—', 0];
-    const total = entries.reduce((s, [,val])=>s+(val||0), 0) || 1;
-    entries.sort((a,b)=>(b[1]||0)-(a[1]||0));
-    const [k,amt] = entries[0];
-    return [k, (amt||0)/total];
-  })();
+  const entries = Object.entries(d.industries||{});
+  const totalInd = entries.reduce((s, [,val])=>s+(val||0), 0) || 1;
+  entries.sort((a,b)=>(b[1]||0)-(a[1]||0));
+  const [topKey, topAmt] = entries[0] || ['—', 0];
+  const topShare = totalInd ? (topAmt||0)/totalInd : 0;
+
   document.getElementById('fin-pac-small').textContent = `${pct(d.pac_pct||0)}% PAC / ${100 - pct(d.pac_pct||0)}% small`;
   document.getElementById('fin-geo').textContent = `${money(d.in_state_dollars||0)} in / ${money(d.out_state_dollars||0)} out`;
-  document.getElementById('fin-industry').textContent = ti[0]==='—' ? '—' : `${ti[0]} (${pct(ti[1])}%)`;
-  document.getElementById('fin-align').textContent = typeof v.donor_alignment_index==='number' ? `${pct(v.donor_alignment_index)}%` : '—';
+  document.getElementById('fin-industry').textContent = topKey==='—' ? '—' : `${topKey} (${pct(topShare)}%)`;
+
+  // Vote Alignment Index (fallback if not in ALIGN)
+  const in$ = d.in_state_dollars||0, out$ = d.out_state_dollars||0;
+  const totalGeo = in$ + out$;
+  const outShare = totalGeo ? out$ / totalGeo : 0;
+  let alignScore = (typeof v.donor_alignment_index==='number') ? v.donor_alignment_index
+                   : Math.min(1, 0.5*(d.pac_pct||0) + 0.3*outShare + 0.2*topShare);
+  document.getElementById('fin-align').textContent = `${pct(alignScore)}%`;
+
 
   // badges pane (detailed list)
   const bl = document.getElementById('badgesList');
