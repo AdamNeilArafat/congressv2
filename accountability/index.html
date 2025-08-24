@@ -315,16 +315,29 @@ function computeBadges(dRec, aRec, vRec){
   const pacPct = dRec?.pac_pct ?? 0;
   if(pacPct >= THRESH.PAC_FLAG){ chips.push(['chip-danger','fa-hand-holding-dollar',`High PAC: ${pct(pacPct)}%`]); }
   else { chips.push(['chip-ok','fa-people-group',`Small donors: ${100-pct(pacPct)}%`]); }
+
   const in$ = dRec?.in_state_dollars || 0, out$ = dRec?.out_state_dollars || 0;
   if(out$ > in$ * 1.05){ chips.push(['chip-warn','fa-route',`Out-of-state heavy (${money(out$)} vs ${money(in$)})`]); }
   else if(in$>0){ chips.push(['chip-ok','fa-house-flag',`Local support (${money(in$)})`]); }
+
   const ti = topIndustry(dRec);
   if(ti.key !== '—' && ti.share >= THRESH.INDUSTRY_DOMINATE){ chips.push(['chip-danger','fa-industry','Dominant industry: '+ti.key]); }
-  const align = vRec?.donor_alignment_index ?? 0;
-  if(align >= THRESH.ALIGN_HIGH){ chips.push(['chip-danger','fa-scale-balanced',`Donor-aligned votes: ${pct(align)}%`]); }
+
+  // ---- Alignment (fallback if vote-based score is missing)
+  let alignScore = (typeof vRec?.donor_alignment_index === 'number') ? vRec.donor_alignment_index : null;
+  if(alignScore === null){
+    const total = in$ + out$;
+    const outShare = total ? out$ / total : 0;
+    const indShare = ti.key==='—' ? 0 : ti.share;
+    // weighted heuristic: adjust weights as you like
+    alignScore = Math.min(1, 0.5*(pacPct||0) + 0.3*outShare + 0.2*indShare);
+  }
+  if(alignScore >= THRESH.ALIGN_HIGH){ chips.push(['chip-danger','fa-scale-balanced',`Donor alignment: ${pct(alignScore)}%`]); }
+
   if(aRec && Array.isArray(aRec.badges)){ aRec.badges.forEach(b=> chips.push(['chip-danger','fa-award', b.label || b.key])); }
   return chips;
 }
+
 
 /** ---------------------------------------------------------
  *  RENDERING
