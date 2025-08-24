@@ -1,0 +1,12 @@
+{
+  "HR-1001": {
+    "badge": "Clean Water Opposer",
+    "color": "#d9534f",
+    "description": "Voted against stronger clean water protections."
+  },
+  "HR-2002": {
+    "badge": "Big Grocery Ally",
+    "color": "#f0ad4e",
+    "description": "Voted against competition reforms in the grocery sector."
+  }
+}

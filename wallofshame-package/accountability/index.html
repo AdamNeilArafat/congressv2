@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Wall of Shame — Faces, Votes, Receipts</title>
+  <meta name="description" content="See how votes and money line up. Filter by bill, state, or party—then open the receipts."/>
+  <meta name="theme-color" content="#0d3b66"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="./assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top" aria-label="Main">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="./index.html">Wall of Shame</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" href="./index.html" aria-current="page">Wall</a></li>
+        <li class="nav-item"><a class="nav-link" href="./financial-alignments.html">Financial Alignments</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="filter-bar">
+  <div class="container py-3">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-4">
+        <label class="form-label">Bill</label>
+        <select id="wfBill" class="form-select"></select>
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label">State</label>
+        <select id="wfState" class="form-select"></select>
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label">Party</label>
+        <select id="wfParty" class="form-select">
+          <option value="">All parties</option>
+          <option value="D">Democrat</option>
+          <option value="R">Republican</option>
+          <option value="I">Independent</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label">Search</label>
+        <input type="search" id="wfSearch" class="form-control" placeholder="Name or state"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="container py-4">
+  <div id="emptyState" class="text-center text-muted py-5 d-none">No matches.</div>
+  <div id="grid" class="row g-4"></div>
+</main>
+
+<footer class="footer border-top py-4">
+  <div class="container small">
+    Demo data for wiring only — replace JSON in <code>accountability/data/</code> with real exports when ready.
+  </div>
+</footer>
+
+<script src="./assets/js/utils.js"></script>
+<script>
+let MEMBERS = {}; let VOTES = {}; let DONORS = {}; let ALIGN = {}; let BADGES = {};
+const grid = document.getElementById('grid');
+const emptyState = document.getElementById('emptyState');
+const wfSearch = document.getElementById('wfSearch');
+const wfBill   = document.getElementById('wfBill');
+const wfState  = document.getElementById('wfState');
+const wfParty  = document.getElementById('wfParty');
+
+function buildFilters(){
+  // Bills
+  const billOptions = ['<option value="">Select a bill</option>'];
+  Object.entries(VOTES).forEach(([key, b])=>{
+    billOptions.push(`<option value="${key}">${b.title}</option>`);
+  });
+  wfBill.innerHTML = billOptions.join('');
+
+  // States (from everyone)
+  const states = new Set();
+  Object.values(MEMBERS).forEach(m=>{ if(m.state) states.add(m.state); });
+  const stateList = Array.from(states).sort();
+  wfState.innerHTML = ['<option value="">All states</option>', ...stateList.map(s=>`<option value="${s}">${s}</option>`)].join('');
+}
+
+function rowMatches(m){
+  const q = (wfSearch.value||'').trim().toLowerCase();
+  if (q && !(m.name.toLowerCase().includes(q) || m.state.toLowerCase().includes(q))) return false;
+  if (wfState.value && m.state!==wfState.value) return false;
+  if (wfParty.value && m.party!==wfParty.value) return false;
+  return true;
+}
+
+function meaningFor(bill){
+  return bill && bill.meaning ? bill.meaning : "";
+}
+
+function offenderMap(billKey){
+  const bill = VOTES[billKey];
+  const offenders = (bill && bill.offenders) || [];
+  const set = new Set(offenders.map(o=>o.bioguide));
+  const byId = {}; offenders.forEach(o=>{ byId[o.bioguide]=o; });
+  return { set, byId, bill };
+}
+
+function card(m, voteInfo){
+  const topDonor = (DONORS[m.bioguide]||[])[0];
+  const align = ALIGN[m.bioguide];
+  const badge = BADGES[wfBill.value];
+  const vote = voteInfo.byId[m.bioguide];
+  const votedBad = voteInfo.set.has(m.bioguide);
+  const badgeHtml = badge && votedBad
+    ? `<span class="badge-soft red me-2">${badge.badge}</span>`
+    : (align>=75 ? `<span class="badge-soft green me-2">Aligned ${align}%</span>`
+                 : `<span class="badge-soft amber me-2">Aligned ${align||'—'}%</span>`);
+
+  const donorsBtn = (DONORS[m.bioguide]||[]).length
+    ? `<button class="btn btn-sm btn-outline-primary" onclick="showDonors('${m.bioguide}')">View receipts</button>`
+    : `<button class="btn btn-sm btn-outline-secondary" disabled>No receipts</button>`;
+
+  return `<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="card h-100">
+      <img src="${m.photo||'images/no-photo.png'}" onerror="this.src='images/no-photo.png'"/>
+      <div class="card-body">
+        <h5 class="card-title mb-1">${m.name}</h5>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="muted">${m.state}-${m.district} • ${partyLabel(m.party)}</small>
+          ${badgeHtml}
+        </div>
+        <div class="mt-2">
+          <div class="small">Top donor: <strong>${topDonor?topDonor.name:'—'}</strong> <span class="text-muted">(${topDonor?topDonor.industry:'—'})</span></div>
+          <div class="small">Total: <strong>${topDonor?fmtMoney(topDonor.total):'—'}</strong></div>
+        </div>
+      </div>
+      <div class="card-footer bg-white d-flex gap-2">
+        ${donorsBtn}
+        ${voteInfo.bill && voteInfo.bill.href ? `<a class="btn btn-sm btn-link" target="_blank" rel="noopener" href="${voteInfo.bill.href}">Bill details</a>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const billKey = wfBill.value;
+  const voteInfo = offenderMap(billKey);
+  const rows = Object.values(MEMBERS).filter(rowMatches);
+  // Sort: offenders first, then by name
+  rows.sort((a,b)=>{
+    const ao = voteInfo.set.has(a.bioguide) ? 0 : 1;
+    const bo = voteInfo.set.has(b.bioguide) ? 0 : 1;
+    if (ao!==bo) return ao - bo;
+    return a.name.localeCompare(b.name);
+  });
+  if (!rows.length){ emptyState.classList.remove('d-none'); grid.innerHTML=''; return; }
+  emptyState.classList.add('d-none');
+  grid.innerHTML = rows.map(m=>card(m, voteInfo)).join('');
+}
+
+function showDonors(bioguide){
+  const donors = DONORS[bioguide]||[];
+  const m = MEMBERS[bioguide];
+  const lines = ['<div class="modal fade" id="dModal" tabindex="-1">',
+    '<div class="modal-dialog modal-lg"><div class="modal-content">',
+    `<div class="modal-header"><h5 class="modal-title">Receipts — ${m.name}</h5>`,
+    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>',
+    '<div class="modal-body"><div class="table-responsive"><table class="table table-sm table-striped">',
+    '<thead><tr><th>Donor</th><th>Industry</th><th>Count</th><th>Total</th></tr></thead><tbody>',
+    ...donors.map(d=>`<tr><td>${d.name}</td><td>${d.industry}</td><td>${d.count}</td><td>${fmtMoney(d.total)}</td></tr>`),
+    '</tbody></table></div></div>',
+    '<div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>',
+    '</div></div></div>'].join('');
+  const holder = document.createElement('div'); holder.innerHTML = lines;
+  document.body.appendChild(holder);
+  const modalEl = holder.querySelector('#dModal');
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+  modalEl.addEventListener('hidden.bs.modal', ()=> holder.remove(), {once:true});
+}
+
+(async function init(){
+  try{
+    MEMBERS = await loadMembers();
+    VOTES   = await loadVotes();
+    DONORS  = await loadDonors();
+    ALIGN   = await loadAlign();
+    BADGES  = await loadBadges();
+    buildFilters();
+    // pick first bill by default
+    const firstBill = Object.keys(VOTES)[0] || "";
+    wfBill.value = firstBill;
+    [wfBill, wfState, wfParty].forEach(el => el.addEventListener('change', render));
+    wfSearch.addEventListener('input', debounce(render, 200));
+    render();
+  }catch(e){
+    console.error('init failed', e);
+    emptyState.classList.remove('d-none');
+    emptyState.textContent = "Load failed — check JSON paths and console.";
+  }
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
