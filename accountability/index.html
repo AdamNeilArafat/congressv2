@@ -369,8 +369,14 @@ function cardHTML(o){
            data-party="${o.partyCode||''}"
            data-state="${o.state}"
            data-name="${o.name.toLowerCase()}">
-    <img class="avatar" src="${o.photo}" alt="${o.name}" loading="lazy"
-         onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'"/>
+<img
+  class="avatar"
+  src="${o.photo || ('/images/' + o.bioguide + '.jpg')}"
+  alt="${o.name}"
+  loading="lazy"
+  decoding="async"
+  onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='https://unitedstates.github.io/images/congress/225x275/${o.bioguide}.jpg'}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
+/>
     <div class="body">
       <div class="name">${o.name}</div>
       <div class="meta">${o.chamber==='senate'?'Senate':'House'} • ${o.state}${o.district?('-'+o.district):''} • ${o.partyLabel||''}</div>
