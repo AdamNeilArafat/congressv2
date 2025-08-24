@@ -1,0 +1,25 @@
+name: Refresh data
+on:
+  workflow_dispatch: {}
+  schedule: [{ cron: "17 9 * * *" }]  # daily 02:17 PT
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci || true
+      - run: node scripts/pull-members.mjs
+      - run: node scripts/pull-votes.mjs
+        env: { CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }} }
+      - run: node scripts/pull-donors.mjs
+        env: { FEC_API_KEY: ${{ secrets.FEC_API_KEY }}, CYCLE: 2026 }
+      - run: node scripts/build-alignments.mjs
+      - run: npm run validate
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.json && git commit -m "refresh data" || echo "no changes"
+          git push
