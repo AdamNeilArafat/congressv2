@@ -8,7 +8,6 @@
   <meta name="theme-color" content="#0d3b66"/>
 
   <!-- Base so relative paths resolve from site root -->
-  <base href="/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Wall of Shame — Faces, Votes, Receipts"/>
@@ -76,15 +75,15 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top" aria-label="Main">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="/index.html">Adam Neil Arafat for Congress - WA-10</a>
+    <a class="navbar-brand fw-bold" href="../index.html">Adam Neil Arafat for Congress - WA-10</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav ms-auto align-items-lg-center">
-        <li class="nav-item"><a class="nav-link active" href="/accountability/index.html" aria-current="page">Wall of Shame</a></li>
-        <li class="nav-item"><a class="nav-link" href="/accountability/financial-alignments.html">Financial Alignments</a></li>
-        <li class="nav-item"><a class="nav-link" href="/accountability/badges.html">Badges &amp; Awards</a></li>
+        <li class="nav-item"><a class="nav-link active" href="./index.html" aria-current="page">Wall of Shame</a></li>
+        <li class="nav-item"><a class="nav-link" href="./financial-alignments.html">Financial Alignments</a></li>
+        <li class="nav-item"><a class="nav-link" href="./badges.html">Badges &amp; Awards</a></li>
         <li class="nav-item"><a class="nav-link" href="/digging-into-the-issues.html">Issues</a></li>
         <li class="nav-item"><a class="nav-link" href="/contrast.html">Record &amp; Contrast</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
@@ -111,7 +110,7 @@
         <option value="I">Independent</option>
       </select>
       <button id="resetFilters" class="btn btn-outline-light btn-sm">Reset</button>
-      <a href="/accountability/financial-alignments.html" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chart-pie me-1"></i>Financial page</a>
+      <a href="./financial-alignments.html" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chart-pie me-1"></i>Financial page</a>
     </div>
   </div>
 </header>
@@ -218,7 +217,7 @@
           <div class="tab-pane fade" id="pane-badges" role="tabpanel" aria-labelledby="tab-badges">
             <div id="badgesList"></div>
             <div class="mt-3">
-              <a class="btn btn-outline-secondary btn-sm" href="/accountability/badges.html#thresholds" target="_blank" rel="noopener"><i class="fa-solid fa-award me-1"></i>Badge definitions</a>
+              <a class="btn btn-outline-secondary btn-sm" href="./badges.html#thresholds" target="_blank" rel="noopener"><i class="fa-solid fa-award me-1"></i>Badge definitions</a>
             </div>
           </div>
         </div>
@@ -280,7 +279,7 @@ async function loadMembers(){
   // cache-bust to beat GH Pages/browser caches while iterating
   const ver = (window.GIT_SHA || Date.now());
   try{
-    const r = await fetch(`/accountability/data/members.json?v=${ver}`, {cache:'no-store'});
+    const r = await fetch(`data/members.json?v=${ver}`, {cache:'no-store'});
     if(r.ok){
       const local = await r.json();
       const out = [];
@@ -339,9 +338,9 @@ async function loadJSON(path, fallback={}){
   }
 }
 
-async function loadDonors(){ return loadJSON('/data/donors-by-member.json', {}); }
-async function loadAwards(){ return loadJSON('/data/member-awards.json', {}); }
-async function loadAlign(){ return loadJSON('/data/vote-alignments.json', {}); }
+async function loadDonors(){ return loadJSON('../data/donors-by-member.json', {}); }
+async function loadAwards(){ return loadJSON('../data/member-awards.json', {}); }
+async function loadAlign(){ return loadJSON('../data/vote-alignments.json', {}); }
 
 function topIndustry(d){
   if(!d || !d.industries) return {key:'—', share:0};
@@ -418,7 +417,7 @@ function cardHTML(o){
       alt="${o.name}"
       loading="lazy"
       decoding="async"
-      onerror="const b='${o.bioguide}';if(!this.dataset.s){this.dataset.s='1';this.src='/images/Image'+b+'.jpg';}else if(this.dataset.s==='1'){this.dataset.s='2';this.src='https://unitedstates.github.io/images/congress/225x275/'+b+'.jpg';}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
+      onerror="const b='${o.bioguide}';if(!this.dataset.s){this.dataset.s='1';this.src='images/Image'+b+'.jpg';}else if(this.dataset.s==='1'){this.dataset.s='2';this.src='https://unitedstates.github.io/images/congress/225x275/'+b+'.jpg';}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
     />
     <div class="body">
       <div class="name">${o.name}</div>
@@ -533,10 +532,10 @@ function openProfile(bio){
   const img = document.getElementById('receiptPhoto');
   img.crossOrigin = 'anonymous';
   img.alt = member.name;
-  img.src = `/images/${member.bioguide}.jpg`;
+  img.src = `images/${member.bioguide}.jpg`;
   img.onerror = function(){
     const b = member.bioguide;
-    if(!this.dataset.s){ this.dataset.s='1'; this.src = `/images/Image${b}.jpg`; }
+    if(!this.dataset.s){ this.dataset.s='1'; this.src = `images/Image${b}.jpg`; }
     else if(this.dataset.s==='1'){ this.dataset.s='2'; this.src = `https://unitedstates.github.io/images/congress/225x275/${b}.jpg`; }
     else { this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22150%22><rect width=%22120%22 height=%22150%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23666%22>NO IMAGE</text></svg>'; }
   };
