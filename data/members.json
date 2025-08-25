@@ -4,4 +4,5 @@
   { "bioguide": "G000604", "name": "Maggie Goodlander", "party": "D", "partyLabel": "Democrat", "chamber": "house", "state": "NH", "district": 2, "fec": "H4NH02399", "photo": "https://unitedstates.github.io/images/congress/225x275/G000604.jpg" },
   { "bioguide": "P000622", "name": "Jimmy Patronis", "party": "R", "partyLabel": "Republican", "chamber": "house", "state": "FL", "district": 1, "fec": "H6FL01390", "photo": "https://unitedstates.github.io/images/congress/225x275/P000622.jpg" },
   { "bioguide": "F000484", "name": "Randall Fine", "party": "R", "partyLabel": "Republican", "chamber": "house", "state": "FL", "district": 6, "fec": "H6FL06258", "photo": "https://unitedstates.github.io/images/congress/225x275/F000484.jpg" },
-  { "bioguide": "G0
+  { "bioguide": "G000583", "name": "Al Green", "party": "D", "partyLabel": "Democrat", "chamber": "house", "state": "TX", "district": 9, "fec": "H4TX09030", "photo": "https://unitedstates.github.io/images/congress/225x275/G000583.jpg" }
+]
