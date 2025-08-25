@@ -6,10 +6,6 @@
   <title>Wall of Shame — Faces, Votes, Receipts</title>
   <meta name="description" content="These Members voted against working families. Every face has receipts, financial alignment, and badges."/>
   <meta name="theme-color" content="#0d3b66"/>
-
-  <!-- Base so relative paths resolve from site root -->
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Wall of Shame — Faces, Votes, Receipts"/>
   <meta property="og:description" content="Filter by state or party. Every face has receipts and badges."/>
   <meta property="og:type" content="website"/>
@@ -65,14 +61,12 @@
     .modal .muted{color:#475569}
     footer{background:#0d3b66; color:#fff; padding:1.25rem 0; margin-top:2rem}
 
-    /* Alignment progress */
     .align-bar { height: .75rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
     .align-fill { height: 100%; background: #c1121f; }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top" aria-label="Main">
   <div class="container">
     <a class="navbar-brand fw-bold" href="../index.html">Adam Neil Arafat for Congress - WA-10</a>
@@ -84,15 +78,14 @@
         <li class="nav-item"><a class="nav-link active" href="./index.html" aria-current="page">Wall of Shame</a></li>
         <li class="nav-item"><a class="nav-link" href="./financial-alignments.html">Financial Alignments</a></li>
         <li class="nav-item"><a class="nav-link" href="./badges.html">Badges &amp; Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="/digging-into-the-issues.html">Issues</a></li>
-        <li class="nav-item"><a class="nav-link" href="/contrast.html">Record &amp; Contrast</a></li>
-        <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="/digging-into-the-issues.html" target="_blank" rel="noopener">Issues</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contrast.html" target="_blank" rel="noopener">Record &amp; Contrast</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact.html" target="_blank" rel="noopener">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
   <div class="container text-center">
     <h1 class="mb-2">Wall of Shame</h1>
@@ -115,10 +108,8 @@
   </div>
 </header>
 
-<!-- GRID -->
 <main class="container my-4">
   <div id="grid" class="grid" aria-live="polite" aria-busy="true">
-    <!-- skeletons -->
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
   </div>
@@ -159,11 +150,9 @@
           </li>
         </ul>
         <div class="tab-content p-3 border border-top-0 rounded-bottom">
-          <!-- Overview -->
           <div class="tab-pane fade show active" id="pane-overview" role="tabpanel" aria-labelledby="tab-overview">
             <div id="receiptContent" class="text-muted">Select a member to view details.</div>
           </div>
-          <!-- Voter Alignment -->
           <div class="tab-pane fade" id="pane-alignment" role="tabpanel" aria-labelledby="tab-alignment">
             <div class="p-3 border rounded-3 mb-3">
               <div class="small text-muted mb-1">Donor Alignment Index</div>
@@ -188,7 +177,6 @@
               </div>
             </div>
           </div>
-          <!-- Financials -->
           <div class="tab-pane fade" id="pane-financials" role="tabpanel" aria-labelledby="tab-financials">
             <div class="row g-3">
               <div class="col-md-6">
@@ -213,7 +201,6 @@
               </div>
             </div>
           </div>
-          <!-- Badges -->
           <div class="tab-pane fade" id="pane-badges" role="tabpanel" aria-labelledby="tab-badges">
             <div id="badgesList"></div>
             <div class="mt-3">
@@ -231,11 +218,16 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end" id="shareMenu">
             <li><a class="dropdown-item" href="#" data-share="copy">Copy link</a></li>
-            <li><a class="dropdown-item" href="#" data-share="facebook">Facebook</a></li>
+            <li><a class="dropdown-item" href="#" data-share="download">Download snapshot (PNG)</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" data-share="reddit">Reddit</a></li>
             <li><a class="dropdown-item" href="#" data-share="bluesky">Bluesky</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" data-share="download">Download snapshot (PNG)</a></li>
+            <li><a class="dropdown-item" href="#" data-share="x">X / Twitter</a></li>
+            <li><a class="dropdown-item" href="#" data-share="facebook">Facebook</a></li>
+            <li><a class="dropdown-item" href="#" data-share="linkedin">LinkedIn</a></li>
+            <li><a class="dropdown-item" href="#" data-share="email">Email</a></li>
+            <li><a class="dropdown-item" href="#" data-share="mastodon">Mastodon</a></li>
+            <li><a class="dropdown-item" href="#" data-share="tiktok">TikTok caption (copy)</a></li>
           </ul>
         </div>
       </div>
@@ -276,7 +268,6 @@ function pct(n){ return Math.round((n||0)*100); }
 function money(n){ return '$' + (Math.round(n||0)).toLocaleString(); }
 
 async function loadMembers(){
-  // cache-bust to beat GH Pages/browser caches while iterating
   const ver = (window.GIT_SHA || Date.now());
   try{
     const r = await fetch(`data/members.json?v=${ver}`, {cache:'no-store'});
@@ -303,8 +294,7 @@ async function loadMembers(){
       }
       return out;
     }
-  }catch(e){ /* ignore and fall through */ }
-  // fallback to congress-legislators if local not present
+  }catch(e){}
   const url = 'https://raw.githubusercontent.com/unitedstates/congress-legislators/gh-pages/legislators-current.json';
   const raw = await fetch(url, {cache:'no-store'}).then(r=>r.json());
   const out = [];
@@ -338,9 +328,9 @@ async function loadJSON(path, fallback={}){
   }
 }
 
-async function loadDonors(){ return loadJSON('..../data/donors-by-member.json', {}); }
-async function loadAwards(){ return loadJSON('..../data/member-awards.json', {}); }
-async function loadAlign(){ return loadJSON('..../data/vote-alignments.json', {}); }
+async function loadDonors(){ return loadJSON('data/donors-by-member.json', {}); }
+async function loadAwards(){ return loadJSON('data/member-awards.json', {}); }
+async function loadAlign(){ return loadJSON('data/vote-alignments.json', {}); }
 
 function topIndustry(d){
   if(!d || !d.industries) return {key:'—', share:0};
@@ -352,28 +342,38 @@ function topIndustry(d){
   return {key, share:(amt||0)/total};
 }
 
+/* Only award “Small donors” if pac_pct is PRESENT (not undefined/null) */
 function computeBadges(dRec, aRec, vRec){
   const chips=[];
-  const pacPct = dRec?.pac_pct ?? 0;
-  if(pacPct >= THRESH.PAC_FLAG){ chips.push(['chip-danger','fa-hand-holding-dollar',`High PAC: ${pct(pacPct)}%`]); }
-  else { chips.push(['chip-ok','fa-people-group',`Small donors: ${100-pct(pacPct)}%`]); }
+  const hasPac = typeof dRec?.pac_pct === 'number';
+  const pacPct = hasPac ? dRec.pac_pct : null;
 
+  if(hasPac){
+    if(pacPct >= THRESH.PAC_FLAG){
+      chips.push(['chip-danger','fa-hand-holding-dollar',`High PAC: ${pct(pacPct)}%`]);
+    }else{
+      chips.push(['chip-ok','fa-people-group',`Small donors: ${100-pct(pacPct)}%`]);
+    }
+  }
   const in$ = dRec?.in_state_dollars || 0, out$ = dRec?.out_state_dollars || 0;
-  if(out$ > in$ * 1.05){ chips.push(['chip-warn','fa-route',`Out-of-state heavy (${money(out$)} vs ${money(in$)})`]); }
-  else if(in$>0){ chips.push(['chip-ok','fa-house-flag',`Local support (${money(in$)})`]); }
+  if(in$>0 || out$>0){
+    if(out$ > in$ * 1.05){ chips.push(['chip-warn','fa-route',`Out-of-state heavy (${money(out$)} vs ${money(in$)})`]); }
+    else if(in$>0){ chips.push(['chip-ok','fa-house-flag',`Local support (${money(in$)})`]); }
+  }
 
   const ti = topIndustry(dRec);
   if(ti.key !== '—' && ti.share >= THRESH.INDUSTRY_DOMINATE){ chips.push(['chip-danger','fa-industry','Dominant industry: '+ti.key]); }
 
-  // Alignment badge (with fallback if no vote-based score)
   let alignScore = (typeof vRec?.donor_alignment_index === 'number') ? vRec.donor_alignment_index : null;
-  if(alignScore === null){
+  if(alignScore === null && hasPac){
     const total = in$ + out$;
     const outShare = total ? out$ / total : 0;
     const indShare = ti.key==='—' ? 0 : ti.share;
     alignScore = Math.min(1, 0.5*(pacPct||0) + 0.3*outShare + 0.2*indShare);
   }
-  if(alignScore >= THRESH.ALIGN_HIGH){ chips.push(['chip-danger','fa-scale-balanced',`Donor alignment: ${pct(alignScore)}%`]); }
+  if(typeof alignScore === 'number' && alignScore >= THRESH.ALIGN_HIGH){
+    chips.push(['chip-danger','fa-scale-balanced',`Donor alignment: ${pct(alignScore)}%`]);
+  }
 
   if(aRec && Array.isArray(aRec.badges)){ aRec.badges.forEach(b=> chips.push(['chip-danger','fa-award', b.label || b.key])); }
   return chips;
@@ -392,10 +392,9 @@ let MEMBERS = [];
 let DONORS = {};
 let AWARDS = {};
 let ALIGN  = {};
-let INDEX = []; // rows to render
+let INDEX = [];
 
 function buildFilters(){
-  // States
   const states = new Set();
   MEMBERS.forEach(m=>{ if(m.state) states.add(m.state); });
   wfState.innerHTML = ['<option value="">All states</option>', ...Array.from(states).sort().map(s=>`<option value="${s}">${s}</option>`)].join('');
@@ -431,16 +430,12 @@ function cardHTML(o){
   </article>`;
 }
 
-/* Join donor/award/align into each member; one card per Member */
 function joinData(){
   INDEX = MEMBERS.map(m=>{
     const d = DONORS[m.bioguide] || {};
     const a = AWARDS[m.bioguide] || null;
     const v = ALIGN[m.bioguide]  || null;
-    return {
-      ...m,
-      donors:d, align:v, awards:a, badges:computeBadges(d,a,v)
-    };
+    return {...m, donors:d, align:v, awards:a, badges:computeBadges(d,a,v)};
   }).sort((a,b)=> a.name.localeCompare(b.name));
 }
 
@@ -503,23 +498,20 @@ async function handleShare(action, member){
   const title = `${member.name} — ${member.partyLabel} ${member.state}${member.district?('-'+member.district):''}`;
 
   if(action==='download'){ return downloadSnapshot(member); }
-  if(action==='copy'){
-    try{ await navigator.clipboard.writeText(shareUrl); }catch(_){}
-    return;
-  }
-  if(action==='native'){
-    if(navigator.share){
-      try{ await navigator.share({title, url: shareUrl}); }catch(_){}
-      return;
-    }
-  }
+  if(action==='copy'){ try{ await navigator.clipboard.writeText(shareUrl); }catch(_){} return; }
+  if(action==='native' && navigator.share){ try{ await navigator.share({title, url: shareUrl}); }catch(_){} return; }
+
   const OPEN = (u)=> window.open(u, '_blank', 'noopener,noreferrer');
   switch(action){
     case 'facebook': OPEN(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`); break;
     case 'reddit':   OPEN(`https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}`); break;
     case 'bluesky':  OPEN(`https://bsky.app/intent/compose?text=${encodeURIComponent(title + ' ' + shareUrl)}`); break;
-    default:
-      try{ await navigator.clipboard.writeText(shareUrl);}catch(_){}
+    case 'x':        OPEN(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`); break;
+    case 'linkedin': OPEN(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`); break;
+    case 'email':    OPEN(`mailto:?subject=${encodeURIComponent('Wall of Shame — ' + member.name)}&body=${encodeURIComponent(title + '\n' + shareUrl)}`); break;
+    case 'mastodon': OPEN(`https://toot.kytta.dev/?text=${encodeURIComponent(title + ' ' + shareUrl)}`); break; /* generic Mastodon share helper */
+    case 'tiktok':   try{ await navigator.clipboard.writeText(`${title} #WallOfShame ${shareUrl}`);}catch(_){} break; /* TikTok requires app upload; copy caption */
+    default:         try{ await navigator.clipboard.writeText(shareUrl);}catch(_){}
   }
 }
 
@@ -527,7 +519,6 @@ function openProfile(bio){
   const member = INDEX.find(r=>r.bioguide===bio);
   if(!member) return;
 
-  // header
   document.getElementById('receiptTitle').textContent = 'Profile';
   const img = document.getElementById('receiptPhoto');
   img.crossOrigin = 'anonymous';
@@ -544,19 +535,16 @@ function openProfile(bio){
   document.getElementById('receiptMeta').textContent =
     `${member.chamber==='senate'?'Senate':'House'} • ${member.state}${member.district?('-'+member.district):''} • ${member.partyLabel||''}`;
 
-  // badges row
   const badgesRow = document.getElementById('receiptBadgesRow');
   badgesRow.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
     `<span class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
 
-  // overview pane (plain)
   document.getElementById('receiptContent').innerHTML =
     `<div class="d-flex align-items-center gap-2 flex-wrap">
       <span class="chip">State: ${member.state}${member.district?(' - '+member.district):''}</span>
       <span class="chip">Party: ${member.partyLabel||''}</span>
      </div>`;
 
-  // financials pane
   const d = member.donors || {};
   const v = member.align || {};
   const entries = Object.entries(d.industries||{});
@@ -565,36 +553,32 @@ function openProfile(bio){
   const [topKey, topAmt] = entries[0] || ['—', 0];
   const topShare = totalInd ? (topAmt||0)/totalInd : 0;
 
-  document.getElementById('fin-pac-small').textContent = `${pct(d.pac_pct||0)}% PAC / ${100 - pct(d.pac_pct||0)}% small`;
-  document.getElementById('fin-geo').textContent = `${money(d.in_state_dollars||0)} in / ${money(d.out_state_dollars||0)} out`;
+  const hasPac = typeof d.pac_pct === 'number';
+  document.getElementById('fin-pac-small').textContent = hasPac ? `${pct(d.pac_pct)}% PAC / ${100 - pct(d.pac_pct)}% small` : '—';
+  const showGeo = (d.in_state_dollars||0) + (d.out_state_dollars||0) > 0;
+  document.getElementById('fin-geo').textContent = showGeo ? `${money(d.in_state_dollars||0)} in / ${money(d.out_state_dollars||0)} out` : '—';
   document.getElementById('fin-industry').textContent = topKey==='—' ? '—' : `${topKey} (${pct(topShare)}%)`;
 
-  // Voter Alignment pane
   const in$ = d.in_state_dollars||0, out$ = d.out_state_dollars||0;
   const totalGeo = in$ + out$;
   const outShare = totalGeo ? out$ / totalGeo : 0;
   let alignScore = (typeof v.donor_alignment_index==='number') ? v.donor_alignment_index
-                   : Math.min(1, 0.5*(d.pac_pct||0) + 0.3*outShare + 0.2*topShare);
-  document.getElementById('align-score').textContent = `${pct(alignScore)}%`;
-  document.getElementById('align-fill').style.width = `${pct(alignScore)}%`;
-  document.getElementById('align-outshare').textContent = `${pct(outShare)}% out-of-state`;
+                   : (hasPac ? Math.min(1, 0.5*(d.pac_pct||0) + 0.3*outShare + 0.2*topShare) : null);
+  document.getElementById('align-score').textContent = (typeof alignScore==='number') ? `${pct(alignScore)}%` : '—';
+  document.getElementById('align-fill').style.width = (typeof alignScore==='number') ? `${pct(alignScore)}%` : '0%';
+  document.getElementById('align-outshare').textContent = showGeo ? `${pct(outShare)}% out-of-state` : '—';
   document.getElementById('align-industryshare').textContent = topKey==='—' ? '—' : `${topKey} ${pct(topShare)}%`;
 
-  // badges pane (detailed list)
   const bl = document.getElementById('badgesList');
   bl.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
     `<div class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</div>`
   ).join(' ') || '<div class="text-muted">No badges earned.</div>';
 
-  // Share menu bindings
   document.querySelectorAll('#shareMenu [data-share]').forEach(a=>{
     a.onclick = (e)=>{ e.preventDefault(); handleShare(a.getAttribute('data-share'), member); };
   });
-  document.getElementById('shareBtn').onclick = async () => {
-    if (navigator.share) { await handleShare('native', member); }
-  };
+  document.getElementById('shareBtn').onclick = async () => { if (navigator.share) { await handleShare('native', member); } };
 
-  // show modal
   const modal = new bootstrap.Modal(document.getElementById('receiptModal'));
   modal.show();
 }
