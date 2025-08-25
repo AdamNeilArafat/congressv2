@@ -32,8 +32,8 @@ try {
   }
 
   await fs.mkdir("data", { recursive: true });
-  await fs.writeFile("data/members.json", JSON.stringify(out, null, 2));
-  console.log("✅ wrote data/members.json");
+  await fs.writeFile("accountability/data/members.json", JSON.stringify(out, null, 2));
+  console.log("✅ wrote accountability/data/members.json");
 } catch (err) {
   console.error("❌ pull-members failed:", err.message || err);
   process.exit(1);
