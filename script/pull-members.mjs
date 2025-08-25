@@ -31,7 +31,7 @@ try {
     });
   }
 
-  await fs.mkdir("data", { recursive: true });
+  await fs.mkdir("accountability/data", { recursive: true });
   await fs.writeFile("accountability/data/members.json", JSON.stringify(out, null, 2));
   console.log("✅ wrote accountability/data/members.json");
 } catch (err) {
