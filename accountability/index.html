@@ -338,9 +338,9 @@ async function loadJSON(path, fallback={}){
   }
 }
 
-async function loadDonors(){ return loadJSON('../data/donors-by-member.json', {}); }
-async function loadAwards(){ return loadJSON('../data/member-awards.json', {}); }
-async function loadAlign(){ return loadJSON('../data/vote-alignments.json', {}); }
+async function loadDonors(){ return loadJSON('..../data/donors-by-member.json', {}); }
+async function loadAwards(){ return loadJSON('..../data/member-awards.json', {}); }
+async function loadAlign(){ return loadJSON('..../data/vote-alignments.json', {}); }
 
 function topIndustry(d){
   if(!d || !d.industries) return {key:'—', share:0};
@@ -532,11 +532,11 @@ function openProfile(bio){
   const img = document.getElementById('receiptPhoto');
   img.crossOrigin = 'anonymous';
   img.alt = member.name;
-  img.src = `images/${member.bioguide}.jpg`;
+  img.src = `https://unitedstates.github.io/images/congress/225x275/${member.bioguide}.jpg`;
   img.onerror = function(){
     const b = member.bioguide;
     if(!this.dataset.s){ this.dataset.s='1'; this.src = `images/Image${b}.jpg`; }
-    else if(this.dataset.s==='1'){ this.dataset.s='2'; this.src = `https://unitedstates.github.io/images/congress/225x275/${b}.jpg`; }
+    else if(this.dataset.s==='1'){ this.dataset.s='2'; this.src = `images/Image${b}.jpg`; }
     else { this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22150%22><rect width=%22120%22 height=%22150%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23666%22>NO IMAGE</text></svg>'; }
   };
 
