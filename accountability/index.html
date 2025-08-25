@@ -280,7 +280,7 @@ async function loadMembers(){
   // cache-bust to beat GH Pages/browser caches while iterating
   const ver = (window.GIT_SHA || Date.now());
   try{
-    const r = await fetch(`/data/members.json?v=${ver}`, {cache:'no-store'});
+    const r = await fetch(`/accountability/data/members.json?v=${ver}`, {cache:'no-store'});
     if(r.ok){
       const local = await r.json();
       const out = [];
