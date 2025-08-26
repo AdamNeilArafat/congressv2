@@ -52,3 +52,10 @@ poetry run python scripts/build_accountability_data.py
 
 This populates `data/` and `accountability/data/` with donors, alignment, and badge JSON used by the web page.
 
+## GitHub Pages Deployment
+
+The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`. The default
+`GITHUB_TOKEN` cannot create or enable a Pages site, so generate a personal access token with `repo`
+and `pages:write` scopes and add it as a repository secret named `PAGES_TOKEN`. The workflow uses
+this token to configure and deploy the site automatically.
+
