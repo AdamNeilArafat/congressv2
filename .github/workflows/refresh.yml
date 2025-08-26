@@ -1,2 +1,0 @@
-env:
-  CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}

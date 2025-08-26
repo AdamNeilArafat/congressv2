@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "build:fec": "node scripts/fec-build.js",
-    "build:members": "node scripts/build-members-csv.js",
     "pretty": "prettier -w ."
   },
   "dependencies": {
