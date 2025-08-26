@@ -6,6 +6,7 @@
     "build:data": "node scripts/pull-members.mjs && node scripts/pull-votes.mjs && node scripts/pull-donors.mjs && node scripts/build-alignments.mjs"
   },
   "dependencies": {
+    "https-proxy-agent": "^7.0.6",
     "node-fetch": "^3.3.2"
   }
 }
