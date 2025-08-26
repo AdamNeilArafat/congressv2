@@ -10,9 +10,12 @@ def test_contribution_normalization(raw_contribs):
     assert c.committee_id == "C1"
     assert c.amount == 1000
     assert c.cycle == 2024
+ codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
+
  codex/create-reproducible-pipeline-for-fec-data-analysis-bn84jr
 
     assert isinstance(c.date, date)
+ main
  main
     assert c.date == date(2024, 1, 1)
 

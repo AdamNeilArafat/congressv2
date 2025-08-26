@@ -1,18 +1,26 @@
+ codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
+
  codex/create-reproducible-pipeline-for-fec-data-analysis-bn84jr
 
 from pathlib import Path
 
+ main
  main
 from typer.testing import CliRunner
 
 from src.cli import app
 
 
+ codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
+
  codex/create-reproducible-pipeline-for-fec-data-analysis-bn84jr
+ main
 def test_cli_smoke():
     runner = CliRunner()
     result = runner.invoke(app, ["ingest", "members"])
     assert result.exit_code == 0
+ codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
+
 
 def test_cli_smoke(tmp_path):
     runner = CliRunner()
@@ -25,6 +33,7 @@ def test_cli_smoke(tmp_path):
     assert db_path.exists()
 
  main
+ main
     result = runner.invoke(app, ["ingest", "fec", "--cycles", "2024"])
     assert result.exit_code == 0
     result = runner.invoke(app, ["ingest", "votes", "--from", "2023-01-01"])
@@ -33,6 +42,10 @@ def test_cli_smoke(tmp_path):
     assert result.exit_code == 0
     result = runner.invoke(app, ["analyze", "--window", "24m"])
     assert result.exit_code == 0
+ codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
+    result = runner.invoke(app, ["export", "--out", "outputs/"])
+    assert result.exit_code == 0
+
  codex/create-reproducible-pipeline-for-fec-data-analysis-bn84jr
     result = runner.invoke(app, ["export", "--out", "outputs/"])
     assert result.exit_code == 0
@@ -43,6 +56,7 @@ def test_cli_smoke(tmp_path):
     assert result.exit_code == 0
     assert (outdir / "alignment.csv").exists()
 
+ main
  main
     result = runner.invoke(app, ["report", "--id", "A000360"])
     assert result.exit_code == 0
