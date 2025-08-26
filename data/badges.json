@@ -1,0 +1,96 @@
+{
+  "leash_industry": { 
+    "label": "Industry Lapdog", 
+    "icon": "fa-dog-leashed", 
+    "thresholds": [10000,20000,40000,75000] 
+  },
+  "puppet": { 
+    "label": "String-Pulled Stooge", 
+    "icon": "fa-person-dolly", 
+    "thresholds": [0.4,0.5,0.6,0.7], 
+    "ratio": true 
+  },
+  "bought_paid": { 
+    "label": "For Sale Sign", 
+    "icon": "fa-tag", 
+    "thresholds": [25000,50000,75000,100000] 
+  },
+  "crown_cash": { 
+    "label": "Throne of Corruption", 
+    "icon": "fa-chess-king", 
+    "thresholds": [50000,100000,200000,400000] 
+  },
+  "backstabber": { 
+    "label": "Knife in the Back", 
+    "icon": "fa-knife-kitchen", 
+    "thresholds": [1.1,1.25,1.5,2.0], 
+    "ratio": true 
+  },
+  "traitor": { 
+    "label": "Turncoat Treasury", 
+    "icon": "fa-mask-face", 
+    "thresholds": [0.8,0.9,0.95,0.98], 
+    "ratio": true 
+  },
+  "aipac_leash": { 
+    "label": "AIPAC Collar", 
+    "icon": "fa-star-of-david", 
+    "thresholds": [10000,20000,35000,60000], 
+    "dual_badges": ["genocide"] 
+  },
+  "genocide": { 
+    "label": "Blood on Hands", 
+    "icon": "fa-hand-drops", 
+    "thresholds": [25000,50000,75000,100000] 
+  },
+  "blood_money": { 
+    "label": "Cash-Soaked Killer", 
+    "icon": "fa-skull", 
+    "thresholds": [20000,50000,100000,200000] 
+  },
+  "gag_order": { 
+    "label": "Free Speech Executioner", 
+    "icon": "fa-gavel", 
+    "thresholds": [5000,15000,30000,60000] 
+  },
+  "voter_betrayal": { 
+    "label": "People’s Judas", 
+    "icon": "fa-users-slash", 
+    "thresholds": [0.4,0.5,0.6,0.7], 
+    "ratio": true 
+  },
+  "corporate_champion": { 
+    "label": "CEO’s Pet", 
+    "icon": "fa-briefcase", 
+    "thresholds": [25000,50000,100000,200000] 
+  },
+  "pac_dependence": { 
+    "label": "PAC Junkie", 
+    "icon": "fa-syringe", 
+    "thresholds": [10000,25000,50000,100000] 
+  },
+  "people_power": { 
+    "label": "People’s Shield (rare)", 
+    "icon": "fa-shield-heart", 
+    "thresholds": [0.6,0.7,0.8,0.9], 
+    "ratio": true, 
+    "positive": true 
+  },
+  "empty_suit": { 
+    "label": "Empty Suit Award", 
+    "icon": "fa-user-tie", 
+    "thresholds": [0.3,0.4,0.5,0.6], 
+    "ratio": true 
+  },
+  "vote_seller": { 
+    "label": "Auctioned Vote", 
+    "icon": "fa-gavel-auction", 
+    "thresholds": [10000,25000,75000,150000] 
+  },
+  "betrayal_index": { 
+    "label": "Enemy of the People", 
+    "icon": "fa-exclamation-triangle", 
+    "thresholds": [1.1,1.3,1.6,2.0], 
+    "ratio": true 
+  }
+}

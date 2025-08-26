@@ -1,0 +1,11 @@
+{
+  "A000360": {
+    "donor_alignment_index": 0.4
+  },
+  "B000123": {
+    "donor_alignment_index": 0.7
+  },
+  "C000456": {
+    "donor_alignment_index": 0.1
+  }
+}

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Wall of Shame — Faces, Votes, Receipts</title>
+  <meta name="description" content="These Members voted against working families. Every face has receipts, financial alignment, and badges."/>
+  <meta name="theme-color" content="#0d3b66"/>
+  <meta property="og:title" content="Wall of Shame — Faces, Votes, Receipts"/>
+  <meta property="og:description" content="Filter by state or party. Every face has receipts and badges."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="/assets/share-wall.png"/>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --ink:#122133; --muted:#5b6b7c; --soft:#f6f9fc; --danger:#c1121f; --ok:#0b6e4f; --brand:#0d3b66;
+      --card:#fff; --ring:rgba(13,59,102,.12); --ring-strong:rgba(13,59,102,.22);
+    }
+    html,body{background:var(--soft); color:var(--ink); font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:var(--brand); text-decoration:none} a:hover{text-decoration:underline}
+    .navbar .nav-link{position:relative; padding:.25rem .5rem; font-weight:600; color:#1b2a3a}
+    .navbar .nav-link::after{content:""; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:currentColor; border-radius:2px; transition:width .18s}
+    .navbar .nav-link:hover::after,.navbar .nav-link.active::after{width:100%}
+
+    .hero{background:linear-gradient(180deg,#0d3b66,#0b3157); color:#fff; padding:2rem 0}
+    .hero h1{font-weight:900; letter-spacing:.3px}
+    .hero p.lead{opacity:.95}
+
+    .tools{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center}
+    .search{max-width:380px}
+    .chip{font-size:.7rem; font-weight:800; border-radius:999px; padding:.2rem .5rem; display:inline-block; background:#eef6ff; color:#0d3b66}
+
+    .grid{display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:.8rem}
+    @media (min-width:576px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (min-width:992px){ .grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+    @media (min-width:1200px){ .grid{grid-template-columns:repeat(4,minmax(0,1fr));} }
+    .skeleton{background:linear-gradient(90deg,#eceff3 25%,#f5f7fa 37%,#eceff3 63%); background-size:400% 100%; animation:sheen 1.2s infinite; border-radius:12px; height:300px}
+    @keyframes sheen{0%{background-position:100% 0} 100%{background-position:0 0}}
+
+    .card-person{position:relative; background:var(--card); border:1px solid var(--ring); border-radius:14px; overflow:hidden; transition:box-shadow .16s, transform .16s, border-color .16s}
+    .card-person:hover{box-shadow:0 14px 40px rgba(13,59,102,.16); border-color:var(--ring-strong); transform:translateY(-2px)}
+    .card-person .body{padding:.75rem .9rem}
+    .name{font-weight:800}
+    .meta{color:var(--muted); font-size:.9rem}
+    .avatar{
+      width:94%; max-width:220px; height:auto; aspect-ratio:4/5;
+      object-fit:cover; background:#e6edf3; display:block; margin:.6rem auto; border-radius:10px;
+    }
+
+    /* Badge chips */
+    .badge-chip{display:inline-flex; align-items:center; gap:.35rem; padding:.15rem .45rem; border-radius:999px; border:1px solid rgba(13,59,102,.22); font-weight:700; font-size:.72rem; margin:.15rem .15rem 0 0}
+    .badge-chip i{font-size:.85rem}
+    .chip-danger{background:#ffecec; border-color:#ffd0d0; color:#8d0a0a}
+    .chip-warn{background:#fff8e6; border-color:#ffe5a3; color:#7a5200}
+    .chip-ok{background:#e9f7ef; border-color:#cfe9d8; color:#0b6e4f}
+
+    .modal .muted{color:#475569}
+    footer{background:#0d3b66; color:#fff; padding:1.25rem 0; margin-top:2rem}
+
+    .align-bar { height: .75rem; background: #eef2f7; border-radius: 999px; overflow: hidden; }
+    .align-fill { height: 100%; background: #c1121f; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top" aria-label="Main">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">Adam Neil Arafat for Congress - WA-10</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" href="./index.html" aria-current="page">Wall of Shame</a></li>
+        <li class="nav-item"><a class="nav-link" href="./financial-alignments.html">Financial Alignments</a></li>
+        <li class="nav-item"><a class="nav-link" href="./badges.html">Badges &amp; Awards</a></li>
+        <li class="nav-item"><a class="nav-link" href="/digging-into-the-issues.html" target="_blank" rel="noopener">Issues</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contrast.html" target="_blank" rel="noopener">Record &amp; Contrast</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact.html" target="_blank" rel="noopener">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container text-center">
+    <h1 class="mb-2">Wall of Shame</h1>
+    <p class="lead mb-3">These Members voted against working families. Every face has receipts, financial alignment, and badges.</p>
+    <div class="tools justify-content-center">
+      <div class="input-group input-group-sm search">
+        <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="search" id="wfSearch" class="form-control" placeholder="Search name, state…" aria-label="Search wall"/>
+      </div>
+      <select id="wfState" class="form-select form-select-sm" aria-label="Filter by state"></select>
+      <select id="wfParty" class="form-select form-select-sm" aria-label="Filter by party">
+        <option value="">All parties</option>
+        <option value="D">Democrat</option>
+        <option value="R">Republican</option>
+        <option value="I">Independent</option>
+      </select>
+      <button id="resetFilters" class="btn btn-outline-light btn-sm">Reset</button>
+      <a href="./financial-alignments.html" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chart-pie me-1"></i>Financial page</a>
+    </div>
+  </div>
+</header>
+
+<main class="container my-4">
+  <div id="grid" class="grid" aria-live="polite" aria-busy="true">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+  <p id="emptyState" class="text-center text-muted mt-3" hidden>No matches. Try clearing filters.</p>
+</main>
+
+<!-- PROFILE MODAL -->
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="receiptTitle">Profile</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex gap-3 align-items-start flex-wrap">
+          <img id="receiptPhoto" src="" alt="" class="rounded" width="120" height="150" loading="lazy"/>
+          <div class="flex-grow-1">
+            <div class="name h4 mb-0" id="receiptName"></div>
+            <div class="meta" id="receiptMeta"></div>
+            <div class="mt-2" id="receiptBadgesRow"></div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mt-3" id="profileTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-overview" data-bs-toggle="tab" data-bs-target="#pane-overview" type="button" role="tab">Overview</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-alignment" data-bs-toggle="tab" data-bs-target="#pane-alignment" type="button" role="tab">Voter Alignment</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-financials" data-bs-toggle="tab" data-bs-target="#pane-financials" type="button" role="tab">Financials</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-badges" data-bs-toggle="tab" data-bs-target="#pane-badges" type="button" role="tab">Badges</button>
+          </li>
+        </ul>
+        <div class="tab-content p-3 border border-top-0 rounded-bottom">
+          <div class="tab-pane fade show active" id="pane-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div id="receiptContent" class="text-muted">Select a member to view details.</div>
+          </div>
+          <div class="tab-pane fade" id="pane-alignment" role="tabpanel" aria-labelledby="tab-alignment">
+            <div class="p-3 border rounded-3 mb-3">
+              <div class="small text-muted mb-1">Donor Alignment Index</div>
+              <div class="align-bar" aria-label="Donor Alignment">
+                <div id="align-fill" class="align-fill" style="width:0%"></div>
+              </div>
+              <div class="mt-2 h5 mb-0"><span id="align-score">—</span></div>
+              <div class="small text-muted">Higher means votes align more with donor interests than constituents.</div>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3 border rounded-3">
+                  <div class="small text-muted">Out-of-State Share</div>
+                  <div class="h5" id="align-outshare">—</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 border rounded-3">
+                  <div class="small text-muted">Top Industry Concentration</div>
+                  <div class="h5" id="align-industryshare">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pane-financials" role="tabpanel" aria-labelledby="tab-financials">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3 border rounded-3">
+                  <div class="small text-muted">PAC vs Small Donors</div>
+                  <div class="h5" id="fin-pac-small">—</div>
+                  <div class="small text-muted">Flagged if PAC ≥ threshold</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 border rounded-3">
+                  <div class="small text-muted">In-District vs Out-District</div>
+                  <div class="h5" id="fin-geo">—</div>
+                  <div class="small text-muted">Flagged if out &gt; in</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 border rounded-3">
+                  <div class="small text-muted">Top Industry</div>
+                  <div class="h5" id="fin-industry">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pane-badges" role="tabpanel" aria-labelledby="tab-badges">
+            <div id="badgesList"></div>
+            <div class="mt-3">
+              <a class="btn btn-outline-secondary btn-sm" href="./badges.html#thresholds" target="_blank" rel="noopener"><i class="fa-solid fa-award me-1"></i>Badge definitions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <!-- Share dropup -->
+        <div class="dropup">
+          <button id="shareBtn" class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-share-nodes me-1"></i>Share
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" id="shareMenu">
+            <li><a class="dropdown-item" href="#" data-share="copy">Copy link</a></li>
+            <li><a class="dropdown-item" href="#" data-share="download">Download snapshot (PNG)</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-share="reddit">Reddit</a></li>
+            <li><a class="dropdown-item" href="#" data-share="bluesky">Bluesky</a></li>
+            <li><a class="dropdown-item" href="#" data-share="x">X / Twitter</a></li>
+            <li><a class="dropdown-item" href="#" data-share="facebook">Facebook</a></li>
+            <li><a class="dropdown-item" href="#" data-share="linkedin">LinkedIn</a></li>
+            <li><a class="dropdown-item" href="#" data-share="email">Email</a></li>
+            <li><a class="dropdown-item" href="#" data-share="mastodon">Mastodon</a></li>
+            <li><a class="dropdown-item" href="#" data-share="tiktok">TikTok caption (copy)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container text-center small">
+    <p class="mb-1">Paid for by Adam Neil Arafat for Congress</p>
+    <p class="mb-0">&copy; 2025 Adam Neil Arafat. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script>
+/** ---------------------------------------------------------
+ *  DATA LOADERS + HELPERS
+ *  --------------------------------------------------------- */
+function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+const THRESH = { PAC_FLAG: 0.40, INDUSTRY_DOMINATE: 0.35, ALIGN_HIGH: 0.90 };
+
+function normalizeParty(p){
+  const s = (p||'').trim().toUpperCase();
+  if (s.startsWith('D')) return 'D';
+  if (s.startsWith('R')) return 'R';
+  if (s.startsWith('I')) return 'I';
+  return '';
+}
+function partyLabel(code){
+  return code==='D' ? 'Democrat'
+       : code==='R' ? 'Republican'
+       : code==='I' ? 'Independent'
+       : '';
+}
+function pct(n){ return Math.round((n||0)*100); }
+function money(n){ return '$' + (Math.round(n||0)).toLocaleString(); }
+
+async function loadMembers(){
+  const ver = (window.GIT_SHA || Date.now());
+  try{
+    const r = await fetch(`data/members.json?v=${ver}`, {cache:'no-store'});
+    if(r.ok){
+      const local = await r.json();
+      const out = [];
+      for(const m of (Array.isArray(local)?local:Object.values(local))){
+        const bioguide = m.bioguide || m.id?.bioguide;
+        if(!bioguide) continue;
+        const pCode = normalizeParty(m.party || '');
+        const first = m.first || m.name_first || m.name?.first || '';
+        const last  = m.last  || m.name_last  || m.name?.last  || '';
+        const display = (m.name && typeof m.name==='string') ? m.name : `${first} ${last}`.trim();
+        out.push({
+          bioguide,
+          name: display,
+          partyCode: pCode,
+          partyLabel: partyLabel(pCode),
+          chamber: m.chamber || '',
+          state: m.state || '',
+          district: m.district || '',
+          photo: m.photo || `https://unitedstates.github.io/images/congress/225x275/${bioguide}.jpg`
+        });
+      }
+      return out;
+    }
+  }catch(e){}
+  const url = 'https://raw.githubusercontent.com/unitedstates/congress-legislators/gh-pages/legislators-current.json';
+  const raw = await fetch(url, {cache:'no-store'}).then(r=>r.json());
+  const out = [];
+  for(const m of raw){
+    const bioguide = m.id?.bioguide; if(!bioguide) continue;
+    const t = (m.terms||[]).slice(-1)[0] || {};
+    const pCode = normalizeParty(t.party || '');
+    out.push({
+      bioguide,
+      name: `${m.name?.first||''} ${m.name?.last||''}`.trim(),
+      partyCode: pCode,
+      partyLabel: partyLabel(pCode),
+      chamber: (t.type==='sen')?'senate':'house',
+      state: t.state || '',
+      district: (t.type==='rep') ? (t.district||'') : '',
+      photo: `https://unitedstates.github.io/images/congress/225x275/${bioguide}.jpg`
+    });
+  }
+  return out;
+}
+
+async function loadJSON(path, fallback={}){
+  try{
+    const ver = (window.GIT_SHA || Date.now());
+    const r = await fetch(`${path}?v=${ver}`, {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){
+    console.warn('Missing', path, '→ using fallback', fallback);
+    return fallback;
+  }
+}
+
+async function loadDonors(){ return loadJSON('data/donors-by-member.json', {}); }
+async function loadAwards(){ return loadJSON('data/member-awards.json', {}); }
+async function loadAlign(){ return loadJSON('data/vote-alignments.json', {}); }
+
+function topIndustry(d){
+  if(!d || !d.industries) return {key:'—', share:0};
+  const entries = Object.entries(d.industries);
+  if(!entries.length) return {key:'—', share:0};
+  const total = entries.reduce((s, [,v])=>s+(v||0),0) || 1;
+  entries.sort((a,b)=>(b[1]||0)-(a[1]||0));
+  const [key, amt] = entries[0];
+  return {key, share:(amt||0)/total};
+}
+
+/* Only award “Small donors” if pac_pct is PRESENT (not undefined/null) */
+function computeBadges(dRec, aRec, vRec){
+  const chips=[];
+  const hasPac = typeof dRec?.pac_pct === 'number';
+  const pacPct = hasPac ? dRec.pac_pct : null;
+
+  if(hasPac){
+    if(pacPct >= THRESH.PAC_FLAG){
+      chips.push(['chip-danger','fa-hand-holding-dollar',`High PAC: ${pct(pacPct)}%`]);
+    }else{
+      chips.push(['chip-ok','fa-people-group',`Small donors: ${100-pct(pacPct)}%`]);
+    }
+  }
+  const in$ = dRec?.in_state_dollars || 0, out$ = dRec?.out_state_dollars || 0;
+  if(in$>0 || out$>0){
+    if(out$ > in$ * 1.05){ chips.push(['chip-warn','fa-route',`Out-of-state heavy (${money(out$)} vs ${money(in$)})`]); }
+    else if(in$>0){ chips.push(['chip-ok','fa-house-flag',`Local support (${money(in$)})`]); }
+  }
+
+  const ti = topIndustry(dRec);
+  if(ti.key !== '—' && ti.share >= THRESH.INDUSTRY_DOMINATE){ chips.push(['chip-danger','fa-industry','Dominant industry: '+ti.key]); }
+
+  let alignScore = (typeof vRec?.donor_alignment_index === 'number') ? vRec.donor_alignment_index : null;
+  if(alignScore === null && hasPac){
+    const total = in$ + out$;
+    const outShare = total ? out$ / total : 0;
+    const indShare = ti.key==='—' ? 0 : ti.share;
+    alignScore = Math.min(1, 0.5*(pacPct||0) + 0.3*outShare + 0.2*indShare);
+  }
+  if(typeof alignScore === 'number' && alignScore >= THRESH.ALIGN_HIGH){
+    chips.push(['chip-danger','fa-scale-balanced',`Donor alignment: ${pct(alignScore)}%`]);
+  }
+
+  if(aRec && Array.isArray(aRec.badges)){ aRec.badges.forEach(b=> chips.push(['chip-danger','fa-award', b.label || b.key])); }
+  return chips;
+}
+
+/** ---------------------------------------------------------
+ *  RENDERING
+ *  --------------------------------------------------------- */
+const grid = document.getElementById('grid');
+const emptyState = document.getElementById('emptyState');
+const wfSearch = document.getElementById('wfSearch');
+const wfState  = document.getElementById('wfState');
+const wfParty  = document.getElementById('wfParty');
+
+let MEMBERS = [];
+let DONORS = {};
+let AWARDS = {};
+let ALIGN  = {};
+let INDEX = [];
+
+function buildFilters(){
+  const states = new Set();
+  MEMBERS.forEach(m=>{ if(m.state) states.add(m.state); });
+  wfState.innerHTML = ['<option value="">All states</option>', ...Array.from(states).sort().map(s=>`<option value="${s}">${s}</option>`)].join('');
+}
+
+function cardHTML(o){
+  const chipsHTML = (o.badges||[]).map(([cls,icon,label]) =>
+    `<span class="badge-chip ${cls}" title="${label}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
+
+  return `
+  <article class="card-person"
+           data-party="${o.partyCode||''}"
+           data-state="${o.state}"
+           data-name="${o.name.toLowerCase()}">
+    <img
+      class="avatar"
+      crossorigin="anonymous"
+      src="${('/images/' + o.bioguide + '.jpg')}"
+      alt="${o.name}"
+      loading="lazy"
+      decoding="async"
+      onerror="const b='${o.bioguide}';if(!this.dataset.s){this.dataset.s='1';this.src='images/Image'+b+'.jpg';}else if(this.dataset.s==='1'){this.dataset.s='2';this.src='https://unitedstates.github.io/images/congress/225x275/'+b+'.jpg';}else{this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22375%22><rect width=%22300%22 height=%22375%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23666%22>NO IMAGE</text></svg>'}"
+    />
+    <div class="body">
+      <div class="name">${o.name}</div>
+      <div class="meta">${o.chamber==='senate'?'Senate':'House'} • ${o.state}${o.district?('-'+o.district):''} • ${o.partyLabel||''}</div>
+      <div class="mt-2" aria-label="badges">${chipsHTML}</div>
+      <div class="mt-2 d-flex gap-2 flex-wrap">
+        <button class="btn btn-outline-dark btn-sm" type="button"
+                data-open-profile='${JSON.stringify({bio:o.bioguide}).replace(/"/g,"&quot;")}'><i class="fa-solid fa-id-card-clip me-1"></i>Open profile</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function joinData(){
+  INDEX = MEMBERS.map(m=>{
+    const d = DONORS[m.bioguide] || {};
+    const a = AWARDS[m.bioguide] || null;
+    const v = ALIGN[m.bioguide]  || null;
+    return {...m, donors:d, align:v, awards:a, badges:computeBadges(d,a,v)};
+  }).sort((a,b)=> a.name.localeCompare(b.name));
+}
+
+function render(){
+  grid.setAttribute('aria-busy','true');
+  const q = wfSearch.value.trim().toLowerCase();
+  const party = wfParty.value;
+  const state = wfState.value;
+
+  const pass = INDEX.filter(o=>{
+    if(party && o.partyCode !== party) return false;
+    if(state && o.state!==state) return false;
+    if(q){
+      const hay = `${o.name} ${o.state}-${o.district} ${o.partyLabel}`.toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if(pass.length===0){
+    grid.innerHTML = '';
+    emptyState.hidden = false;
+  }else{
+    emptyState.hidden = true;
+    grid.innerHTML = pass.map(cardHTML).join('');
+  }
+  grid.removeAttribute('aria-busy');
+}
+
+function cardPermalink(member){
+  const url = new URL(location.href);
+  url.hash = ''; url.search=''; url.pathname = location.pathname;
+  const deeplink = `#?bio=${encodeURIComponent(member.bioguide)}`;
+  return url.origin + url.pathname + deeplink;
+}
+
+async function downloadSnapshot(member){
+  const src = document.querySelector('#receiptModal .modal-content');
+  const node = src.cloneNode(true);
+  node.querySelector('.modal-footer')?.remove();
+  node.style.width = '800px';
+  node.style.maxWidth = '800px';
+  node.style.padding = '16px';
+  node.style.background = '#fff';
+  node.style.color = '#122133';
+  node.style.position = 'fixed';
+  node.style.left = '-9999px';
+  document.body.appendChild(node);
+  const canvas = await html2canvas(node, {scale: 2, backgroundColor:'#fff', useCORS:true});
+  document.body.removeChild(node);
+
+  const a = document.createElement('a');
+  a.download = `${member.name.replace(/\s+/g,'_')}_wall-card.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+async function handleShare(action, member){
+  const shareUrl = cardPermalink(member);
+  const title = `${member.name} — ${member.partyLabel} ${member.state}${member.district?('-'+member.district):''}`;
+
+  if(action==='download'){ return downloadSnapshot(member); }
+  if(action==='copy'){ try{ await navigator.clipboard.writeText(shareUrl); }catch(_){} return; }
+  if(action==='native' && navigator.share){ try{ await navigator.share({title, url: shareUrl}); }catch(_){} return; }
+
+  const OPEN = (u)=> window.open(u, '_blank', 'noopener,noreferrer');
+  switch(action){
+    case 'facebook': OPEN(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`); break;
+    case 'reddit':   OPEN(`https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}`); break;
+    case 'bluesky':  OPEN(`https://bsky.app/intent/compose?text=${encodeURIComponent(title + ' ' + shareUrl)}`); break;
+    case 'x':        OPEN(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`); break;
+    case 'linkedin': OPEN(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`); break;
+    case 'email':    OPEN(`mailto:?subject=${encodeURIComponent('Wall of Shame — ' + member.name)}&body=${encodeURIComponent(title + '\n' + shareUrl)}`); break;
+    case 'mastodon': OPEN(`https://toot.kytta.dev/?text=${encodeURIComponent(title + ' ' + shareUrl)}`); break; /* generic Mastodon share helper */
+    case 'tiktok':   try{ await navigator.clipboard.writeText(`${title} #WallOfShame ${shareUrl}`);}catch(_){} break; /* TikTok requires app upload; copy caption */
+    default:         try{ await navigator.clipboard.writeText(shareUrl);}catch(_){}
+  }
+}
+
+function openProfile(bio){
+  const member = INDEX.find(r=>r.bioguide===bio);
+  if(!member) return;
+
+  document.getElementById('receiptTitle').textContent = 'Profile';
+  const img = document.getElementById('receiptPhoto');
+  img.crossOrigin = 'anonymous';
+  img.alt = member.name;
+  img.src = `https://unitedstates.github.io/images/congress/225x275/${member.bioguide}.jpg`;
+  img.onerror = function(){
+    const b = member.bioguide;
+    if(!this.dataset.s){ this.dataset.s='1'; this.src = `images/Image${b}.jpg`; }
+    else if(this.dataset.s==='1'){ this.dataset.s='2'; this.src = `images/Image${b}.jpg`; }
+    else { this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22150%22><rect width=%22120%22 height=%22150%22 fill=%22%23e6edf3%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2212%22 fill=%22%23666%22>NO IMAGE</text></svg>'; }
+  };
+
+  document.getElementById('receiptName').textContent = member.name;
+  document.getElementById('receiptMeta').textContent =
+    `${member.chamber==='senate'?'Senate':'House'} • ${member.state}${member.district?('-'+member.district):''} • ${member.partyLabel||''}`;
+
+  const badgesRow = document.getElementById('receiptBadgesRow');
+  badgesRow.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
+    `<span class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</span>`).join(' ');
+
+  document.getElementById('receiptContent').innerHTML =
+    `<div class="d-flex align-items-center gap-2 flex-wrap">
+      <span class="chip">State: ${member.state}${member.district?(' - '+member.district):''}</span>
+      <span class="chip">Party: ${member.partyLabel||''}</span>
+     </div>`;
+
+  const d = member.donors || {};
+  const v = member.align || {};
+  const entries = Object.entries(d.industries||{});
+  const totalInd = entries.reduce((s, [,val])=>s+(val||0), 0) || 1;
+  entries.sort((a,b)=>(b[1]||0)-(a[1]||0));
+  const [topKey, topAmt] = entries[0] || ['—', 0];
+  const topShare = totalInd ? (topAmt||0)/totalInd : 0;
+
+  const hasPac = typeof d.pac_pct === 'number';
+  document.getElementById('fin-pac-small').textContent = hasPac ? `${pct(d.pac_pct)}% PAC / ${100 - pct(d.pac_pct)}% small` : '—';
+  const showGeo = (d.in_state_dollars||0) + (d.out_state_dollars||0) > 0;
+  document.getElementById('fin-geo').textContent = showGeo ? `${money(d.in_state_dollars||0)} in / ${money(d.out_state_dollars||0)} out` : '—';
+  document.getElementById('fin-industry').textContent = topKey==='—' ? '—' : `${topKey} (${pct(topShare)}%)`;
+
+  const in$ = d.in_state_dollars||0, out$ = d.out_state_dollars||0;
+  const totalGeo = in$ + out$;
+  const outShare = totalGeo ? out$ / totalGeo : 0;
+  let alignScore = (typeof v.donor_alignment_index==='number') ? v.donor_alignment_index
+                   : (hasPac ? Math.min(1, 0.5*(d.pac_pct||0) + 0.3*outShare + 0.2*topShare) : null);
+  document.getElementById('align-score').textContent = (typeof alignScore==='number') ? `${pct(alignScore)}%` : '—';
+  document.getElementById('align-fill').style.width = (typeof alignScore==='number') ? `${pct(alignScore)}%` : '0%';
+  document.getElementById('align-outshare').textContent = showGeo ? `${pct(outShare)}% out-of-state` : '—';
+  document.getElementById('align-industryshare').textContent = topKey==='—' ? '—' : `${topKey} ${pct(topShare)}%`;
+
+  const bl = document.getElementById('badgesList');
+  bl.innerHTML = (member.badges||[]).map(([cls,icon,label])=>
+    `<div class="badge-chip ${cls}"><i class="fa-solid ${icon}"></i>${label}</div>`
+  ).join(' ') || '<div class="text-muted">No badges earned.</div>';
+
+  document.querySelectorAll('#shareMenu [data-share]').forEach(a=>{
+    a.onclick = (e)=>{ e.preventDefault(); handleShare(a.getAttribute('data-share'), member); };
+  });
+  document.getElementById('shareBtn').onclick = async () => { if (navigator.share) { await handleShare('native', member); } };
+
+  const modal = new bootstrap.Modal(document.getElementById('receiptModal'));
+  modal.show();
+}
+
+function handleDeepLink(){
+  const [, qs] = location.hash.split('?');
+  if(qs){
+    const p = new URLSearchParams(qs);
+    const bio = p.get('bio');
+    if(bio){ setTimeout(()=> openProfile(bio), 50); }
+  }
+}
+
+/** ---------------------------------------------------------
+ *  EVENTS
+ *  --------------------------------------------------------- */
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('[data-open-profile]');
+  if(!btn) return;
+  try{
+    const data = JSON.parse(btn.getAttribute('data-open-profile'));
+    openProfile(data.bio);
+  }catch(e){}
+});
+
+const rerender = debounce(render, 160);
+wfSearch.addEventListener('input', rerender);
+[wfState, wfParty].forEach(el => el.addEventListener('change', render));
+document.getElementById('resetFilters').addEventListener('click', ()=>{
+  wfSearch.value=''; wfState.value=''; wfParty.value=''; render();
+});
+
+/** ---------------------------------------------------------
+ *  BOOT
+ *  --------------------------------------------------------- */
+(async function init(){
+  MEMBERS = await loadMembers();
+  [DONORS, AWARDS, ALIGN] = await Promise.all([loadDonors(), loadAwards(), loadAlign()]);
+  buildFilters();
+  joinData();
+  render();
+  handleDeepLink();
+})();
+</script>
+</body>
+</html>
