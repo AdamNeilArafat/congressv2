@@ -1,7 +1,5 @@
 name: Refresh data
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
   schedule:
     - cron: '17 9 * * *'   # 09:17 UTC daily
