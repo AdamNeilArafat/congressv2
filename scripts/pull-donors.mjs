@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import fetch from "node-fetch";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 const KEY = process.env.FEC_API_KEY;        // optional
 const CYCLE = process.env.CYCLE || "2026";  // election cycle
 
+const proxy = process.env.https_proxy || process.env.http_proxy;
+const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
+
 async function donorsFor(fecId){
   if(!KEY || !fecId) return null;
   const url = `https://api.open.fec.gov/v1/candidates/totals/?api_key=${KEY}&cycle=${CYCLE}&candidate_id=${fecId}`;
-  const r = await fetch(url);
+  const r = await fetch(url, { agent });
   if(!r.ok) return null;
   const j = await r.json();
   const row = (j.results||[])[0]; if(!row) return null;

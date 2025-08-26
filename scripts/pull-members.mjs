@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import fetch from "node-fetch";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 const SRC = "https://raw.githubusercontent.com/unitedstates/congress-legislators/gh-pages/legislators-current.json";
 const img = (bio)=>`https://unitedstates.github.io/images/congress/225x275/${bio}.jpg`;
 const normalizeParty = p => (p||"")[0]?.toUpperCase() || "";
 const partyLabel = c => c==="D"?"Democrat":c==="R"?"Republican":c==="I"?"Independent":"";
 
+const proxy = process.env.https_proxy || process.env.http_proxy;
+const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
+
 try {
-  const res = await fetch(SRC);
+  const res = await fetch(SRC, { agent });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const raw = await res.json();
   const out = [];

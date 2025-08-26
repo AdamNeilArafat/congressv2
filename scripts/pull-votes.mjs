@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import fetch from "node-fetch";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 const KEY = process.env.CONGRESS_API_KEY;
 if (!KEY) { console.error("❌ CONGRESS_API_KEY missing"); process.exit(1); }
@@ -9,8 +10,12 @@ const BASE = "https://api.congress.gov/v3";
 const UA = "congressv2/1.0 (AdamNeilArafat/congressv2)";
 const sinceISO = new Date(Date.now() - 30*24*60*60*1000).toISOString(); // last 30d
 
+const proxy = process.env.https_proxy || process.env.http_proxy;
+const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
+
 async function getJSON(url, attempt=1){
   const r = await fetch(url, {
+    agent,
     headers: {
       "X-Api-Key": KEY,
       "User-Agent": UA,
