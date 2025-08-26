@@ -1,6 +1,7 @@
 """Normalization helpers for raw API data."""
 from __future__ import annotations
 
+from datetime import date
 from typing import Dict, Iterable, List
 from datetime import datetime
 
@@ -25,7 +26,7 @@ def normalize_contributions(records: Iterable[Dict]) -> List[Contribution]:
                 contributor_type=r.get("type"),
                 industry=r.get("industry"),
                 amount=float(r.get("amount", 0)),
-                date=date_val,
+
                 cycle=int(r.get("cycle", 0)),
             )
         )
