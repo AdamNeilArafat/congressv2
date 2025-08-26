@@ -52,6 +52,13 @@ poetry run python scripts/build_accountability_data.py
 
 This populates `data/` and `accountability/data/` with donors, alignment, and badge JSON used by the web page.
 
+### FEC data without an API key
+
+If the OpenFEC API is unavailable, set the `FEC_FALLBACK_CSV` environment
+variable to a CSV file containing `candidate_id,total_receipts,individual_contributions,
+pac_contributions,transfers_from_other_authorized_committee` columns. The
+`scripts/pull-donors.mjs` script reads this file instead of calling the API.
+
 ## GitHub Pages Deployment
 
 The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`. The default
