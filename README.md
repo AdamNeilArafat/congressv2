@@ -42,9 +42,6 @@ badges(member_id FK, badge_code, label, reason, computed_at)
 member_id,badge_code,label
 A000360,WALL_STREET_WON'T_LIKE_IT,Wall Street Won't Like It
 ```
-
- codex/create-reproducible-pipeline-for-fec-data-analysis-erh252
-
 ## Publish data for Accountability Wall
 
 After generating CSV outputs, convert them to JSON for the accountability cards:
