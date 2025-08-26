@@ -1,5 +1,5 @@
 <!-- financial-alignments.html — FULL, DROP‑IN PAGE
-     - Uses pipeline JSON if present: data/members.json, data/donors-by-member.json, data/member-awards.json, data/vote-alignments.json
+     - Uses pipeline JSON if present: ../data/members.json, ../data/donors-by-member.json, ../data/member-awards.json, ../data/vote-alignments.json
      - Also ships with inline demo data as a fallback so it renders out of the box.
      - Extras: client‑side filters, column sorting, CSV export, robust error handling, a11y tweaks. -->
 <!DOCTYPE html>
@@ -296,10 +296,10 @@
   // Load data (pipeline if present, else demo)
   $('#load-status').textContent = 'Loading data…';
   const [members, donorsByMember, awardsByMember, voteAlignByMember] = await Promise.all([
-    tryJSON('data/members.json','demo-members'),
-    tryJSON('data/donors-by-member.json','demo-donors'),
-    tryJSON('data/member-awards.json','demo-awards'),
-    tryJSON('data/vote-alignments.json','demo-align')
+    tryJSON('../data/members.json','demo-members'),
+    tryJSON('../data/donors-by-member.json','demo-donors'),
+    tryJSON('../data/member-awards.json','demo-awards'),
+    tryJSON('../data/vote-alignments.json','demo-align')
   ]);
   $('#load-status').textContent = 'Data loaded.';
 
