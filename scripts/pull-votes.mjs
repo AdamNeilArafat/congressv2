@@ -4,7 +4,12 @@ import fetch from "node-fetch";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
 const KEY = process.env.CONGRESS_API_KEY;
-if (!KEY) { console.error("❌ CONGRESS_API_KEY missing"); process.exit(1); }
+if (!KEY) {
+  console.warn("⚠️ CONGRESS_API_KEY missing, writing empty data/votes.json and skipping fetch");
+  await fs.mkdir("data", { recursive:true });
+  await fs.writeFile("data/votes.json", "{}\n");
+  process.exit(0);
+}
 
 const BASE = "https://api.congress.gov/v3";
 const UA = "congressv2/1.0 (AdamNeilArafat/congressv2)";
