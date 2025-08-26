@@ -350,7 +350,7 @@ function partyLabel(code){
 async function loadMembers(){
   // 1) local mirror (fast, versioned)
   try{
-    const r = await fetch('data/members.json', {cache:'no-store'});
+    const r = await fetch('../data/members.json', {cache:'no-store'});
     if(r.ok){
       const local = await r.json();
       const norm = {};
@@ -397,7 +397,7 @@ async function loadMembers(){
 
 async function loadVotes(){
   try{
-    const r = await fetch('data/votes.json', {cache:'no-store'});
+    const r = await fetch('../data/votes.json', {cache:'no-store'});
     if(!r.ok) throw new Error('no votes file');
     return await r.json();
   }catch(e){
