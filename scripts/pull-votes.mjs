@@ -51,7 +51,7 @@ async function collectChamber(chamber){
   const out = {};
   // The API key is provided via header, so avoid leaking it in the request URL
   // which could be logged or cached. Rely solely on the header for auth.
-  let url = `${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(sinceISO)}&format=json`;
+  let url = `${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(sinceISO)}&format=json&limit=250`;
   while (url) {
     const data = await getJSON(url);
     for (const v of data.votes || []) {
@@ -73,8 +73,10 @@ async function collectChamber(chamber){
 }
 
 (async ()=>{
-  const house = await collectChamber("house");
-  const senate = await collectChamber("senate");
+  const [house, senate] = await Promise.all([
+    collectChamber("house"),
+    collectChamber("senate")
+  ]);
   const votes = { ...house, ...senate };
   await fs.mkdir("data", { recursive:true });
   await fs.writeFile("data/votes.json", JSON.stringify(votes,null,2));

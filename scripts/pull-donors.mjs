@@ -22,9 +22,17 @@ async function donorsFor(fecId){
 
 const members = JSON.parse(await fs.readFile("data/members.json","utf8"));
 const out = {};
-for(const m of members){
-  const d = await donorsFor(m.fec);
-  if(d) out[m.bioguide] = d;
+const queue = members.slice();
+const CONCURRENCY = Number(process.env.CONCURRENCY) || 5;
+
+async function worker(){
+  while(queue.length){
+    const m = queue.shift();
+    const d = await donorsFor(m.fec);
+    if(d) out[m.bioguide] = d;
+  }
 }
+
+await Promise.all(Array.from({length: CONCURRENCY}, worker));
 await fs.writeFile("data/donors-by-member.json", JSON.stringify(out,null,2));
 console.log(`✅ wrote data/donors-by-member.json (${Object.keys(out).length})`);
