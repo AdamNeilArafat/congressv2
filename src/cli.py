@@ -65,6 +65,43 @@ def ingest_fec(cycles: str = typer.Option(..., "--cycles")) -> None:
     load.load_objects(contribs)
 
 
+@ingest_app.command("candidate-totals")
+def ingest_candidate_totals(
+    candidate_id: str = typer.Option("H0XX00001", "--candidate-id"),
+    cycle: int = typer.Option(2024, "--cycle"),
+) -> None:
+    """Fetch candidate totals via the FEC API."""
+
+    def fake_get_json(url, params):  # pragma: no cover - simple wiring
+        return {"results": [], "pagination": {"page": 1, "pages": 1}}
+
+    original = fec.get_json
+    fec.get_json = fake_get_json
+    try:
+        fec.fetch_candidate_totals(candidate_id, cycle)
+    finally:
+        fec.get_json = original
+
+
+@ingest_app.command("independent-expenditures")
+def ingest_independent_expenditures(
+    candidate_id: str = typer.Option("H0XX00001", "--candidate-id"),
+    cycle: int = typer.Option(2024, "--cycle"),
+    bulk: bool = typer.Option(False, "--bulk"),
+) -> None:
+    """Fetch Schedule E independent expenditures."""
+
+    def fake_get_json(url, params):  # pragma: no cover - simple wiring
+        return {"results": [], "pagination": {"page": 1, "pages": 1}}
+
+    original = fec.get_json
+    fec.get_json = fake_get_json
+    try:
+        fec.fetch_independent_expenditures(candidate_id, cycle, bulk=bulk)
+    finally:
+        fec.get_json = original
+
+
 @ingest_app.command("votes")
 def ingest_votes(from_date: str = typer.Option(..., "--from")) -> None:
     """Parse and store a minimal vote record."""

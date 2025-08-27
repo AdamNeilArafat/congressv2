@@ -19,6 +19,22 @@ def test_cli_smoke(tmp_path):
     # run remaining commands to ensure CLI wiring works
     result = runner.invoke(app, ["ingest", "fec", "--cycles", "2024"])
     assert result.exit_code == 0
+    result = runner.invoke(
+        app, ["ingest", "candidate-totals", "--candidate-id", "H0XX00001", "--cycle", "2024"]
+    )
+    assert result.exit_code == 0
+    result = runner.invoke(
+        app,
+        [
+            "ingest",
+            "independent-expenditures",
+            "--candidate-id",
+            "H0XX00001",
+            "--cycle",
+            "2024",
+        ],
+    )
+    assert result.exit_code == 0
     result = runner.invoke(app, ["ingest", "votes", "--from", "2023-01-01"])
     assert result.exit_code == 0
     result = runner.invoke(app, ["ingest", "voter-history", "--path", "data/voter_history_sample.csv"])
