@@ -64,7 +64,6 @@ async function collectChamber(chamber){
   // The API key is provided via header, so avoid leaking it in the request URL
   // which could be logged or cached. Rely solely on the header for auth.
   let url = `${BASE}/votes?chamber=${chamber}&fromDateTime=${encodeURIComponent(sinceISO)}&format=json&limit=250`;
- main
   while (url) {
     const data = await getJSON(url);
     for (const v of data.votes || []) {
