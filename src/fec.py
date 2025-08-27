@@ -42,20 +42,6 @@ def fetch_contributions(candidate_id: str, cycle: int) -> List[Dict]:
     return data.get("results", [])
 
 
-def fetch_independent_expenditures(candidate_id: str, cycle: int) -> List[Dict]:
-    """Fetch Schedule E independent expenditures for a candidate."""
-    settings = get_settings()
-    url = f"{API_URL}/schedules/schedule_e/"
-    params = {
-        "api_key": settings.fec_api_key,
-        "candidate_id": candidate_id,
-        "per_page": 20,
-        "cycle": cycle,
-    }
-    data = get_json(url, params=params)
-    return data.get("results", [])
-
-
 def link_members_to_candidates(members: Iterable[Dict[str, str]], mapping: Dict[str, List[str]]) -> Dict[str, List[str]]:
     """Link members to candidate IDs using provided mapping.
 
@@ -91,7 +77,22 @@ def _fetch_all_pages(url: str, params: Dict) -> List[Dict]:
     return results
 
 
-def fetch_candidate_totals(candidate_id: str, cycle: int) -> List[Dict]:
+def _download_bulk_candidate_totals(cycle: int, candidate_id: str) -> List[Dict]:
+    """Download candidate totals in bulk CSV format."""
+    base = f"https://www.fec.gov/files/bulk-downloads/{cycle}"
+    url = f"{base}/ccl.csv.zip"
+    with tempfile.TemporaryDirectory() as tmpdir:
+        zip_path = Path(tmpdir) / "ccl.zip"
+        urllib.request.urlretrieve(url, zip_path)
+        with zipfile.ZipFile(zip_path) as zf:
+            name = zf.namelist()[0]
+            with zf.open(name) as fh:
+                reader = csv.DictReader(io.TextIOWrapper(fh, encoding="latin-1"))
+                cid = candidate_id.upper()
+                return [row for row in reader if row.get("CAND_ID") == cid]
+
+
+def fetch_candidate_totals(candidate_id: str, cycle: int, bulk: bool = False) -> List[Dict]:
     """Fetch candidate totals for a given cycle.
 
     Parameters
@@ -100,7 +101,12 @@ def fetch_candidate_totals(candidate_id: str, cycle: int) -> List[Dict]:
         FEC candidate identifier.
     cycle: int
         Two-year election cycle.
+    bulk: bool, optional
+        If ``True``, download bulk CSV data instead of calling the API.
     """
+    if bulk:
+        return _download_bulk_candidate_totals(cycle, candidate_id)
+
     settings = get_settings()
     if settings.fec_data_dir:
         path = Path(settings.fec_data_dir) / "candidate_totals.csv"
