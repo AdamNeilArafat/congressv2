@@ -41,6 +41,20 @@ class Contribution(SQLModel, table=True):
     cycle: int
 
 
+class IndependentExpenditure(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    committee_id: Optional[str] = Field(
+        default=None, foreign_key="committee.committee_id"
+    )
+    candidate_id: Optional[str] = None
+    payee: Optional[str] = None
+    purpose: Optional[str] = None
+    amount: float
+    date: date
+    support_oppose: Optional[str] = None
+    cycle: int
+
+
 class Bill(SQLModel, table=True):
     bill_id: str = Field(primary_key=True)
     congress: int

@@ -44,6 +44,22 @@ def raw_contribs() -> list[dict]:
 
 
 @pytest.fixture
+def raw_independent_expenditures() -> list[dict]:
+    return [
+        {
+            "committee_id": "C1",
+            "candidate_id": "H0XX00001",
+            "payee": "Media Co",
+            "purpose": "Ads",
+            "amount": 5000,
+            "date": "2024-02-01",
+            "support_oppose": "S",
+            "cycle": 2024,
+        }
+    ]
+
+
+@pytest.fixture
 def vote_record() -> dict:
     return {
         "positions": [

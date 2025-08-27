@@ -36,6 +36,20 @@ def fetch_contributions(candidate_id: str, cycle: int) -> List[Dict]:
     return data.get("results", [])
 
 
+def fetch_independent_expenditures(candidate_id: str, cycle: int) -> List[Dict]:
+    """Fetch Schedule E independent expenditures for a candidate."""
+    settings = get_settings()
+    url = f"{API_URL}/schedules/schedule_e/"
+    params = {
+        "api_key": settings.fec_api_key,
+        "candidate_id": candidate_id,
+        "per_page": 20,
+        "cycle": cycle,
+    }
+    data = get_json(url, params=params)
+    return data.get("results", [])
+
+
 def link_members_to_candidates(members: Iterable[Dict[str, str]], mapping: Dict[str, List[str]]) -> Dict[str, List[str]]:
     """Link members to candidate IDs using provided mapping.
 
