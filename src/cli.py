@@ -42,8 +42,16 @@ def ingest_members() -> None:
 
 
 @ingest_app.command("fec")
-def ingest_fec(cycles: str = typer.Option(..., "--cycles")) -> None:
-    """Normalize and store a sample FEC contribution record."""
+def ingest_fec(
+    cycles: str = typer.Option(..., "--cycles"),
+    schedule_e: bool = typer.Option(
+        False, "--schedule-e", help="Include Schedule E data", is_flag=True
+    ),
+) -> None:
+    """Normalize and store a sample FEC contribution record.
+
+    Optionally include Schedule E independent expenditures.
+    """
     members = [{"member_id": "A000360", "bioguide_id": "A000360"}]
     mapping = {"A000360": ["H0XX00001"]}
     fec.link_members_to_candidates(members, mapping)
@@ -63,6 +71,11 @@ def ingest_fec(cycles: str = typer.Option(..., "--cycles")) -> None:
     ]
     contribs = normalize.normalize_contributions(raw)
     load.load_objects(contribs)
+
+    if schedule_e:
+        ie_raw = fec.fetch_independent_expenditures("H0XX00001", int(cycles))
+        expenditures = normalize.normalize_independent_expenditures(ie_raw)
+        load.load_objects(expenditures)
 
 
 @ingest_app.command("candidate-totals")
