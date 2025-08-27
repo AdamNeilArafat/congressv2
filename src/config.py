@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     fec_api_key: str = ""
-    pp_congress_api_key: str = ""
+    congress_api_key: str = ""
     db_url: str = "sqlite:///campaign.db"
 
     class Config:
