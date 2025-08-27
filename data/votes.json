@@ -1,1 +1,30 @@
-{}
+{
+  "house-118-1-rc1": {
+    "title": "Roll Call 1",
+    "short": "H.R.1",
+    "award": "Recorded Vote",
+    "meaning": "Test vote",
+    "rc": {
+      "chamber": "house",
+      "congress": 118,
+      "session": 1,
+      "roll": 1
+    },
+    "offenders_vote": ["no", "nay"],
+    "offenders": [
+      {
+        "bioguide": "A000360",
+        "name": "Alice Anderson",
+        "party": "D",
+        "state": "CA"
+      },
+      {
+        "bioguide": "B000123",
+        "name": "Bob Brown",
+        "party": "R",
+        "state": "TX"
+      }
+    ]
+  }
+}
+

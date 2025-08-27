@@ -5,9 +5,9 @@ import { HttpsProxyAgent } from "https-proxy-agent";
 
 const KEY = process.env.CONGRESS_API_KEY;
 if (!KEY) {
-  console.warn("⚠️ CONGRESS_API_KEY missing, writing empty data/votes.json and skipping fetch");
-  await fs.mkdir("data", { recursive:true });
-  await fs.writeFile("data/votes.json", "{}\n");
+  console.warn(
+    "⚠️ CONGRESS_API_KEY missing, skipping fetch and leaving existing data/votes.json intact",
+  );
   process.exit(0);
 }
 
