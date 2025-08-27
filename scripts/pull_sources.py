@@ -5,8 +5,12 @@ import subprocess
 
 REPOS = {
     "unitedstates-congress": "https://github.com/unitedstates/congress",
+    "congress-legislators": (
+        "https://github.com/unitedstates/congress-legislators"
+    ),
     "openFEC": "https://github.com/fecgov/openFEC",
 }
+
 
 def main() -> None:
     base = Path("data") / "sources"
@@ -14,9 +18,13 @@ def main() -> None:
     for name, url in REPOS.items():
         dest = base / name
         if dest.exists():
-            subprocess.run(["git", "-C", str(dest), "pull", "--ff-only"], check=True)
+            subprocess.run(
+                ["git", "-C", str(dest), "pull", "--ff-only"],
+                check=True,
+            )
         else:
             subprocess.run(["git", "clone", url, str(dest)], check=True)
+
 
 if __name__ == "__main__":
     main()

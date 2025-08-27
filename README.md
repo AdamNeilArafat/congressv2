@@ -10,8 +10,10 @@ make dev
 
 ### GitHub data sources
 
-Clone upstream repositories for legislative and finance data and point the
-pipeline at them with environment variables:
+Clone upstream repositories for legislator metadata, legislative data, and
+finance data. The helper script also fetches the
+`unitedstates/congress-legislators` repository, which provides the Bioguide ↔ FEC
+ID crosswalk used to join votes with campaign finance records.
 
 ```bash
 python scripts/pull_sources.py
