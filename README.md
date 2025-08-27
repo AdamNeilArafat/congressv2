@@ -66,3 +66,100 @@ The project deploys its static site with GitHub Pages via `.github/workflows/pag
 and `pages:write` scopes and add it as a repository secret named `PAGES_TOKEN`. The workflow uses
 this token to configure and deploy the site automatically.
 
+## Congress.gov API curl examples
+
+All Congress.gov endpoints share a rate limit of **5,000 requests per hour**. List endpoints are
+paginated with a `limit` parameter (default 20, maximum 250) and an `offset` parameter for the start
+record.
+
+### Amendments
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill/118/hr/1234/amendments?format=json&limit=20&offset=0"
+```
+
+### Related bills
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill/118/hr/1234/relatedBills?format=json&limit=20&offset=0"
+```
+
+### Titles
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill/118/hr/1234/titles?format=json&limit=20&offset=0"
+```
+
+### Policy area
+Rate limit: 5,000 requests per hour. This endpoint returns at most one record and is not paginated.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill/118/hr/1234/policy-area?format=json"
+```
+
+### Bill text
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset` across text versions.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill/118/hr/1234/text?format=json&limit=20&offset=0"
+```
+
+### Incremental window queries
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/bill?fromDateTime=2024-01-01T00:00:00Z&toDateTime=2024-01-31T23:59:59Z&format=json&limit=20&offset=0"
+```
+
+### Member details
+Rate limit: 5,000 requests per hour. This endpoint returns a single record and is not paginated.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/member/B000575?format=json"
+```
+
+### Member cosponsored legislation
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/member/B000575/cosponsoredLegislation?format=json&limit=20&offset=0"
+```
+
+### Vote item/member levels
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset` for member vote lists.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/house-vote/118/1/45?format=json&limit=20&offset=0"
+```
+
+### Committees
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/committee?format=json&limit=20&offset=0"
+```
+
+### Committee reports
+Rate limit: 5,000 requests per hour. Single report retrieval is not paginated.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/committee-report/118/hrpt/1?format=json"
+```
+
+### Nominations
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/nomination?format=json&limit=20&offset=0"
+```
+
+### Treaties
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/treaty?format=json&limit=20&offset=0"
+```
+
+### Congressional Record
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/congressional-record/118/house?format=json&limit=20&offset=0"
+```
+
+### Amendment collections
+Rate limit: 5,000 requests per hour. Pagination: `limit` and `offset`.
+```bash
+curl -H "X-Api-Key: YOUR_API_KEY" "https://api.congress.gov/v3/amendment?format=json&limit=20&offset=0"
+```
+
+
