@@ -3,9 +3,11 @@ import fs from "node:fs/promises";
 import fetch from "node-fetch";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-const KEY = process.env.FEC_API_KEY;        // required unless FEC_FALLBACK_CSV is set
+const KEY = process.env.FEC_API_KEY;        // required unless a fallback CSV is available
 const CYCLE = process.env.CYCLE || "2026";  // election cycle
-const FALLBACK = process.env.FEC_FALLBACK_CSV; // CSV fallback when no API key
+// allow overriding the fallback but default to a bundled sample CSV so the
+// site can still render when the API is unreachable
+const FALLBACK = process.env.FEC_FALLBACK_CSV || "data/fec-sample.csv";
 
 const proxy = process.env.https_proxy || process.env.http_proxy;
 const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
@@ -32,35 +34,37 @@ function parseCsv(text){
 }
 
 let fallback = null;
-if(!KEY){
-  if(FALLBACK){
-    try{
-      const txt = await fs.readFile(FALLBACK, "utf8");
-      fallback = parseCsv(txt);
-      console.log(`ℹ️ loaded fallback FEC totals from ${FALLBACK}`);
-    }catch(e){
-      console.error(`⚠️ could not read fallback CSV ${FALLBACK}: ${e.message}`);
-      process.exit(1);
-    }
-  } else {
-    console.error("FEC_API_KEY not set and no FEC_FALLBACK_CSV provided; cannot fetch donor data");
+try {
+  const txt = await fs.readFile(FALLBACK, "utf8");
+  fallback = parseCsv(txt);
+  console.log(`ℹ️ loaded fallback FEC totals from ${FALLBACK}`);
+} catch (e) {
+  if (!KEY) {
+    console.error(`FEC_API_KEY not set and fallback CSV not found at ${FALLBACK}`);
     process.exit(1);
   }
 }
 
 async function donorsFor(fecId){
   if(KEY && fecId){
-    const url = `https://api.open.fec.gov/v1/candidates/totals/?api_key=${KEY}&cycle=${CYCLE}&candidate_id=${fecId}`;
-    const r = await fetch(url, { agent });
-    if(!r.ok) return null;
-    const j = await r.json();
-    const row = (j.results||[])[0]; if(!row) return null;
-    return {
-      receipts: row.receipts || 0,
-      individual: row.individual_contributions || 0,
-      pac: row.pac_contributions || 0,
-      transfers: row.transfers_from_other_authorized_committee || 0
-    };
+    try{
+      const url = `https://api.open.fec.gov/v1/candidates/totals/?api_key=${KEY}&cycle=${CYCLE}&candidate_id=${fecId}`;
+      const r = await fetch(url, { agent });
+      if(r.ok){
+        const j = await r.json();
+        const row = (j.results||[])[0];
+        if(row){
+          return {
+            receipts: row.receipts || 0,
+            individual: row.individual_contributions || 0,
+            pac: row.pac_contributions || 0,
+            transfers: row.transfers_from_other_authorized_committee || 0
+          };
+        }
+      }
+    }catch(e){
+      console.warn(`⚠️ fetch failed for ${fecId}: ${e.message}`);
+    }
   }
   if(fallback && fecId){
     return fallback[fecId] || null;
@@ -77,7 +81,7 @@ async function worker(){
   while(queue.length){
     const m = queue.shift();
     const d = await donorsFor(m.fec);
-    if(d) out[m.bioguide] = d;
+    out[m.bioguide] = d || { receipts: 0, individual: 0, pac: 0, transfers: 0 };
   }
 }
 

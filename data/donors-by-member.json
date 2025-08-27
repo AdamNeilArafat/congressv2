@@ -1,26 +1,3224 @@
 {
-  "A000360": {
-    "in_state_dollars": 0,
-    "industries": {
-      "Unknown": 1000.0
-    },
-    "out_state_dollars": 5000.0,
-    "pac_pct": 0.2
+  "C000127": {
+    "receipts": 5000000,
+    "individual": 3000000,
+    "pac": 1500000,
+    "transfers": 500000
   },
-  "B000123": {
-    "in_state_dollars": 0,
-    "industries": {
-      "Unknown": 500.0
-    },
-    "out_state_dollars": 2500.0,
-    "pac_pct": 0.2
+  "K000367": {
+    "receipts": 4000000,
+    "individual": 2500000,
+    "pac": 1200000,
+    "transfers": 300000
   },
-  "C000456": {
-    "in_state_dollars": 0,
-    "industries": {
-      "Unknown": 0.0
-    },
-    "out_state_dollars": 1000.0,
-    "pac_pct": 0.0
+  "S000033": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000802": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001261": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000437": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001035": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001056": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000563": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000359": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000355": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001176": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000122": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000584": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001181": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000805": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000555": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001088": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000055": {
+    "receipts": 2000000,
+    "individual": 1500000,
+    "pac": 400000,
+    "transfers": 100000
+  },
+  "B001230": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001267": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001257": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B000490": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001243": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001277": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001236": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001260": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C000059": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001047": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001072": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001051": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001075": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001066": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001080": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001067": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001061": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C000537": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001068": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001053": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001059": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001069": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C000880": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001087": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001063": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000096": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000197": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000216": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000616": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000600": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000399": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000459": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000450": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000559": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000565": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000386": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000546": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000553": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000568": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000558": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001052": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001046": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001047": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001042": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001061": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H000874": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001058": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000288": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000293": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000289": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000009": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000375": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000376": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000575": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000560": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000557": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000566": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000577": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000397": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000491": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000570": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000562": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000133": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001163": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001157": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001177": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001143": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000312": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001137": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001160": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000934": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001153": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001169": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001111": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000002": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000015": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000147": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000034": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000603": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000197": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000595": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000597": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "Q000023": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000395": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000575": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001176": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001145": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001150": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000148": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001183": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001189": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001157": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000185": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001184": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001185": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000344": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001148": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000510": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001172": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000522": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001156": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000193": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000460": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000467": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000250": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000469": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000463": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000128": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000081": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000798": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000797": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000187": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000806": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000800": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000795": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000808": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000804": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000809": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000779": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "Y000064": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000369": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001278": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000617": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001184": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001194": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000454": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000468": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001095": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000578": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001068": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001287": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001193": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001285": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000599": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000472": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000130": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000608": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000462": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000622": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001282": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000817": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000383": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000812": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000618": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001067": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001096": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000463": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001188": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000294": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001281": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000295": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001190": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000605": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001098": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000814": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001091": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000816": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000131": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000384": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000607": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000385": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001195": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001288": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001101": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000188": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000370": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000609": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001072": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000821": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000574": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000623": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000371": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000582": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000474": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001103": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000583": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000372": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001295": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001196": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001194": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000624": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000294": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000603": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000822": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001196": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001296": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001291": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001292": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000610": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000189": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000576": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000600": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001198": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000295": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000476": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000605": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000388": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000585": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000626": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001108": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000296": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000393": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001076": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001113": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001190": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001302": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000389": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000613": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001112": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001300": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001110": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001303": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000628": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000609": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001200": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001199": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000391": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001299": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001198": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001077": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000299": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000606": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001301": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001305": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001298": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000583": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000608": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000297": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000466": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001199": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000392": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000581": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000375": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000298": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000298": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000190": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000585": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001114": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001203": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001079": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001115": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001306": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001082": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001206": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001205": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001055": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001066": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001211": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001090": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000593": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000191": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001121": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001081": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001214": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001208": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000469": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000586": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001117": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "U000040": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001307": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000629": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000482": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000617": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001208": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001215": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000481": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001119": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000173": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001212": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000591": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000614": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000133": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000394": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001207": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000590": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000172": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000631": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001085": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001204": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000302": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000610": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000480": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000301": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001309": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000612": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001120": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000589": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000468": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000299": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000614": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000587": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001118": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001216": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001213": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001205": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001217": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001089": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000592": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001210": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000687": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000165": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000377": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000571": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "I000056": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000250": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000129": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000278": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H000273": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H000601": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001212": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000019": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000397": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000305": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B000825": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001039": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000472": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000032": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000593": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000168": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000788": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001116": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000596": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001091": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001215": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000446": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001211": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001214": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S000929": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000871": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000148": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001136": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000470": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000305": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000273": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000597": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000317": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000486": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B000740": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B000668": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M000194": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001086": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000246": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000048": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000304": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000026": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000594": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000134": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001213": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000086": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001159": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000471": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000145": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000174": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000790": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000478": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000595": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001125": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001218": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000071": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001313": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001126": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001127": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000474": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000475": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000579": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "Y000067": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "Z000018": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001319": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001227": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000479": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001220": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001132": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001133": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000401": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001225": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000400": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000598": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000620": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001314": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001216": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000476": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000596": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000597": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001217": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001218": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001129": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001219": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000487": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "N000193": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000309": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000617": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001315": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001225": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001093": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001220": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "I000058": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001221": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000307": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000488": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000379": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001316": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000235": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000230": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000477": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000246": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000398": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001226": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000136": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000598": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000599": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000599": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000600": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000601": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001222": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001223": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001317": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001094": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001226": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000602": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000530": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001223": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000478": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000175": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001224": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001224": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000603": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000594": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001130": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001131": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001095": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000399": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001318": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000600": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000135": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001096": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000618": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001227": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000380": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001228": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001201": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000402": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000480": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000619": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001229": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000829": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000110": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001188": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001123": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000382": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001232": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001242": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001243": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001323": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000481": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "A000381": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001098": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001231": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000605": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000607": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "W000830": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000620": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000483": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000491": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001241": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001100": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001137": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000300": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001238": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001099": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000311": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001229": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001233": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001228": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000176": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "E000301": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001232": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001321": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001237": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001234": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001324": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "O000177": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000404": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000634": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001240": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001102": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001101": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000405": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001236": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000482": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000604": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "C001136": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000621": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000602": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "L000606": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000622": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001231": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "T000490": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "D000635": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001326": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001230": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001327": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001103": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001325": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000601": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "G000603": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000310": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "K000403": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001239": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "V000138": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "S001230": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "B001322": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "R000621": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001235": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "J000312": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "H001104": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "M001244": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "P000622": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
+  },
+  "F000484": {
+    "receipts": 0,
+    "individual": 0,
+    "pac": 0,
+    "transfers": 0
   }
 }
