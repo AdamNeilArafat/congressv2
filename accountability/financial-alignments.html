@@ -315,7 +315,12 @@
 
   function pct(n){ return Math.round((n||0)*100); }
   function money(n){ return '$' + (Math.round(n||0)).toLocaleString(); }
-  function resolveMember(mid){ return members?.[mid] || null; }
+  function resolveMember(mid){
+    if(Array.isArray(members)){
+      return members.find(m => (m.id || m.bioguide) === mid) || null;
+    }
+    return members?.[mid] || null;
+  }
 
   function topIndustry(d){
     if(!d || !d.industries) return {key:'—', share:0};
