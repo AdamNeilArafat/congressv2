@@ -1,0 +1,3 @@
+voter_id,election_date,participated,method
+V001,2022-11-08,True,Absentee
+V002,2022-11-08,False,

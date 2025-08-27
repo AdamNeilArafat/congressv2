@@ -68,6 +68,14 @@ class MemberVote(SQLModel, table=True):
     position: str
 
 
+class VoterHistory(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    voter_id: str
+    election_date: date
+    participated: bool
+    method: Optional[str] = None
+
+
 class MemberFinance(SQLModel, table=True):
     member_id: str = Field(foreign_key="member.member_id", primary_key=True)
     cycle: int = Field(primary_key=True)

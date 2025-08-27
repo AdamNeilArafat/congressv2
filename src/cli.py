@@ -6,7 +6,7 @@ from pathlib import Path
 
 import typer
 
-from . import analyze, fec, load, normalize, votes
+from . import analyze, fec, load, normalize, votes, voter_history
 from .models import Member, MemberVote
 
 app = typer.Typer()
@@ -85,6 +85,14 @@ def ingest_votes(from_date: str = typer.Option(..., "--from")) -> None:
         for mid, pos in positions.items()
     ]
     load.load_objects(member_votes)
+
+
+@ingest_app.command("voter-history")
+def ingest_voter_history(path: str = typer.Option("data/voter_history_sample.csv", "--path")) -> None:
+    """Parse and store voter history records from a CSV file."""
+    load.init_db()
+    records = voter_history.parse_voter_history(path)
+    load.load_objects(records)
 
 
 @app.command("normalize")
