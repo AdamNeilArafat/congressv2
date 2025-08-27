@@ -3,11 +3,23 @@ from __future__ import annotations
 
 import csv
 from pathlib import Path
+from typing import Optional
 
 import typer
 
-from . import analyze, fec, load, normalize, votes, voter_history
-from .models import Member, MemberVote
+from . import (
+    analyze,
+    bills,
+    committees,
+    fec,
+    load,
+    members,
+    normalize,
+    records,
+    votes,
+    voter_history,
+)
+from .models import Bill, Committee, CongressionalRecord, Member, MemberVote
 
 app = typer.Typer()
 ingest_app = typer.Typer()
@@ -15,30 +27,78 @@ app.add_typer(ingest_app, name="ingest")
 
 
 @ingest_app.command("members")
-def ingest_members() -> None:
-    """Load a tiny set of members into the database."""
+def ingest_members(from_date: Optional[str] = typer.Option(None, "--from")) -> None:
+    """Fetch members from Congress.gov and store them."""
     load.init_db()
-    members = [
+    records = members.fetch_members(from_date=from_date)
+    objs = [
         Member(
-            member_id="A000360",
-            bioguide_id="A000360",
-            first="Alice",
-            last="Anderson",
-            chamber="House",
-            party="D",
-            state="CA",
-        ),
-        Member(
-            member_id="B000123",
-            bioguide_id="B000123",
-            first="Bob",
-            last="Brown",
-            chamber="House",
-            party="R",
-            state="TX",
-        ),
+            member_id=r.get("bioguideId") or r.get("memberId"),
+            bioguide_id=r.get("bioguideId"),
+            first=r.get("firstName", ""),
+            last=r.get("lastName", ""),
+            chamber=r.get("chamber", ""),
+            party=r.get("party", ""),
+            state=r.get("state", ""),
+        )
+        for r in records
+        if r.get("bioguideId") or r.get("memberId")
     ]
-    load.load_objects(members)
+    load.load_objects(objs)
+
+
+@ingest_app.command("bills")
+def ingest_bills(from_date: Optional[str] = typer.Option(None, "--from")) -> None:
+    """Fetch bills from Congress.gov and store them."""
+    load.init_db()
+    records = bills.fetch_bills(from_date=from_date)
+    objs = [
+        Bill(
+            bill_id=r.get("billId")
+            or f"{r.get('type', '')}{r.get('number', '')}-{r.get('congress', '')}",
+            congress=int(r.get("congress", 0)),
+            chamber=r.get("type", ""),
+            number=str(r.get("number", "")),
+            title=r.get("title", ""),
+        )
+        for r in records
+    ]
+    load.load_objects(objs)
+
+
+@ingest_app.command("committees")
+def ingest_committees(from_date: Optional[str] = typer.Option(None, "--from")) -> None:
+    """Fetch committees from Congress.gov and store them."""
+    load.init_db()
+    records = committees.fetch_committees(from_date=from_date)
+    objs = [
+        Committee(
+            committee_id=r.get("committeeId") or r.get("code"),
+            name=r.get("name", ""),
+            type=r.get("type"),
+        )
+        for r in records
+        if r.get("committeeId") or r.get("code")
+    ]
+    load.load_objects(objs)
+
+
+@ingest_app.command("records")
+def ingest_records(from_date: Optional[str] = typer.Option(None, "--from")) -> None:
+    """Fetch Congressional Record entries and store them."""
+    load.init_db()
+    records_data = records.fetch_records(from_date=from_date)
+    objs = [
+        CongressionalRecord(
+            record_id=r.get("recordId"),
+            title=r.get("title", ""),
+            date=r.get("date"),
+            chamber=r.get("chamber"),
+        )
+        for r in records_data
+        if r.get("recordId")
+    ]
+    load.load_objects(objs)
 
 
 @ingest_app.command("fec")
