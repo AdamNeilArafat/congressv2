@@ -1,56 +1,26 @@
 {
-  "L000602": {
-    "in_state_dollars": 15000,
+  "A000360": {
+    "in_state_dollars": 0,
     "industries": {
-      "Education": 5000,
-      "Healthcare": 10000
+      "Unknown": 1000.0
     },
-    "out_state_dollars": 20000,
-    "pac_pct": 0.1
-  },
-  "D000530": {
-    "in_state_dollars": 10000,
-    "industries": {
-      "Tech": 6000,
-      "Finance": 4000
-    },
-    "out_state_dollars": 8000,
-    "pac_pct": 0.05
-  },
-  "G000604": {
-    "in_state_dollars": 5000,
-    "industries": {
-      "Energy": 3000,
-      "Labor": 2000
-    },
-    "out_state_dollars": 3000,
+    "out_state_dollars": 5000.0,
     "pac_pct": 0.2
   },
-  "P000622": {
-    "in_state_dollars": 12000,
+  "B000123": {
+    "in_state_dollars": 0,
     "industries": {
-      "Agriculture": 7000,
-      "Defense": 5000
+      "Unknown": 500.0
     },
-    "out_state_dollars": 15000,
-    "pac_pct": 0.25
+    "out_state_dollars": 2500.0,
+    "pac_pct": 0.2
   },
-  "F000484": {
-    "in_state_dollars": 8000,
+  "C000456": {
+    "in_state_dollars": 0,
     "industries": {
-      "Real Estate": 4000,
-      "Healthcare": 2000
+      "Unknown": 0.0
     },
-    "out_state_dollars": 6000,
-    "pac_pct": 0.15
-  },
-  "G000583": {
-    "in_state_dollars": 2000,
-    "industries": {
-      "Finance": 3000,
-      "Tech": 1000
-    },
-    "out_state_dollars": 4000,
-    "pac_pct": 0.05
+    "out_state_dollars": 1000.0,
+    "pac_pct": 0.0
   }
 }

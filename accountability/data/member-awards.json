@@ -1,32 +1,18 @@
 {
-  "L000602": {
+  "A000360": {
     "badges": [
-      {"key": "WALL_STREET_WON'T_LIKE_IT", "label": "Wall Street Won't Like It"}
+      {
+        "key": "WALL_STREET_WON'T_LIKE_IT",
+        "label": "Wall Street Won't Like It"
+      }
     ]
   },
-  "D000530": {
+  "B000123": {
     "badges": [
-      {"key": "DEFENSE_ALIGNED", "label": "Defense Aligned"}
-    ]
-  },
-  "G000604": {
-    "badges": [
-      {"key": "SMALL_DOLLARS_HEAVY", "label": "Small Dollars Heavy"}
-    ]
-  },
-  "P000622": {
-    "badges": [
-      {"key": "INDUSTRY_LEAN_UNKNOWN", "label": "Industry Lean Unknown"}
-    ]
-  },
-  "F000484": {
-    "badges": [
-      {"key": "WALL_STREET_WON'T_LIKE_IT", "label": "Wall Street Won't Like It"}
-    ]
-  },
-  "G000583": {
-    "badges": [
-      {"key": "DEFENSE_ALIGNED", "label": "Defense Aligned"}
+      {
+        "key": "DEFENSE_ALIGNED",
+        "label": "Defense Aligned"
+      }
     ]
   }
 }

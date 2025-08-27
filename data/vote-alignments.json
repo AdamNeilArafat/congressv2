@@ -1,8 +1,11 @@
 {
-  "L000602": {"donor_alignment_index": 0.25},
-  "D000530": {"donor_alignment_index": 0.65},
-  "G000604": {"donor_alignment_index": 0.4},
-  "P000622": {"donor_alignment_index": 0.7},
-  "F000484": {"donor_alignment_index": 0.55},
-  "G000583": {"donor_alignment_index": 0.3}
+  "A000360": {
+    "donor_alignment_index": 0.4
+  },
+  "B000123": {
+    "donor_alignment_index": 0.7
+  },
+  "C000456": {
+    "donor_alignment_index": 0.1
+  }
 }
