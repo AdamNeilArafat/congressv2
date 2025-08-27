@@ -381,10 +381,12 @@
     const ph = "data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='#e9eef5'/><g fill='#98a5b4'><circle cx='32' cy='24' r='12'/><rect x='10' y='40' width='44' height='16' rx='8'/></g></svg>");
     const photo = m.photo || m.image || `https://unitedstates.github.io/images/congress/225x275/${mid}.jpg`;
 
+    const seat = m.seat || (m.state ? `${m.state}${m.district?'-'+m.district:''}` : '—');
+
     return {
       mid,
       name: m.name || mid,
-      seat: m.seat || (m.state || '—'),
+      seat,
       party: m.party || '',
       chamber: (m.chamber || '').toLowerCase(),
       state: (m.state || '').toLowerCase(),
@@ -418,8 +420,16 @@
   }
 
   function rebuildTable(){
-    const mids = Object.keys(donorsByMember||{});
-    if(!mids.length){ tbody.innerHTML = `<tr><td colspan="8" class="text-muted">No finance data found.</td></tr>`; return; }
+    let mids = [];
+    if(Array.isArray(members)){
+      mids = members.map(m=>m.id || m.bioguide || m.fec).filter(Boolean);
+    }else{
+      mids = Object.keys(members||{});
+    }
+    if(!mids.length){
+      tbody.innerHTML = `<tr><td colspan="8" class="text-muted">No member data found.</td></tr>`;
+      return;
+    }
     const rows = mids.map(mid => rowData(mid));
     tbody.innerHTML = rows.map(rowHTML).join('');
   }

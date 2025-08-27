@@ -103,6 +103,11 @@
         <option value="R">Republican</option>
         <option value="I">Independent</option>
       </select>
+      <select id="wfChamber" class="form-select form-select-sm" aria-label="Filter by chamber">
+        <option value="">All chambers</option>
+        <option value="house">House</option>
+        <option value="senate">Senate</option>
+      </select>
       <button id="resetFilters" class="btn btn-outline-light btn-sm">Reset</button>
       <a href="./financial-alignments.html" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chart-pie me-1"></i>Financial page</a>
     </div>
@@ -388,6 +393,7 @@ const emptyState = document.getElementById('emptyState');
 const wfSearch = document.getElementById('wfSearch');
 const wfState  = document.getElementById('wfState');
 const wfParty  = document.getElementById('wfParty');
+const wfChamber = document.getElementById('wfChamber');
 
 let MEMBERS = [];
 let DONORS = {};
@@ -445,10 +451,12 @@ function render(){
   const q = wfSearch.value.trim().toLowerCase();
   const party = wfParty.value;
   const state = wfState.value;
+  const chamber = wfChamber.value;
 
   const pass = INDEX.filter(o=>{
     if(party && o.partyCode !== party) return false;
     if(state && o.state!==state) return false;
+    if(chamber && o.chamber!==chamber) return false;
     if(q){
       const hay = `${o.name} ${o.state}-${o.district} ${o.partyLabel}`.toLowerCase();
       if(!hay.includes(q)) return false;
@@ -605,9 +613,9 @@ document.addEventListener('click', (e)=>{
 
 const rerender = debounce(render, 160);
 wfSearch.addEventListener('input', rerender);
-[wfState, wfParty].forEach(el => el.addEventListener('change', render));
+[wfState, wfParty, wfChamber].forEach(el => el.addEventListener('change', render));
 document.getElementById('resetFilters').addEventListener('click', ()=>{
-  wfSearch.value=''; wfState.value=''; wfParty.value=''; render();
+  wfSearch.value=''; wfState.value=''; wfParty.value=''; wfChamber.value=''; render();
 });
 
 /** ---------------------------------------------------------
