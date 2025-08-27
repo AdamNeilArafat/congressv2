@@ -54,10 +54,12 @@ This populates `data/` and `accountability/data/` with donors, alignment, and ba
 
 ### FEC data without an API key
 
-If the OpenFEC API is unavailable, set the `FEC_FALLBACK_CSV` environment
-variable to a CSV file containing `candidate_id,total_receipts,individual_contributions,
-pac_contributions,transfers_from_other_authorized_committee` columns. The
-`scripts/pull-donors.mjs` script reads this file instead of calling the API.
+If the OpenFEC API is unavailable, you **must** set the `FEC_FALLBACK_CSV`
+environment variable to a CSV file containing
+`candidate_id,total_receipts,individual_contributions,pac_contributions,transfers_from_other_authorized_committee`
+columns. The `scripts/pull-donors.mjs` script reads this file instead of
+calling the API and will exit with an error if neither `FEC_API_KEY` nor a
+fallback CSV is provided.
 
 ### Sample API calls
 

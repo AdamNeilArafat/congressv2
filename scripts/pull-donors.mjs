@@ -3,9 +3,9 @@ import fs from "node:fs/promises";
 import fetch from "node-fetch";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-const KEY = process.env.FEC_API_KEY;        // optional
+const KEY = process.env.FEC_API_KEY;        // required unless FEC_FALLBACK_CSV is set
 const CYCLE = process.env.CYCLE || "2026";  // election cycle
-const FALLBACK = process.env.FEC_FALLBACK_CSV; // optional CSV
+const FALLBACK = process.env.FEC_FALLBACK_CSV; // CSV fallback when no API key
 
 const proxy = process.env.https_proxy || process.env.http_proxy;
 const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
@@ -32,16 +32,20 @@ function parseCsv(text){
 }
 
 let fallback = null;
-if(!KEY && FALLBACK){
-  try{
-    const txt = await fs.readFile(FALLBACK, "utf8");
-    fallback = parseCsv(txt);
-    console.log(`ℹ️ loaded fallback FEC totals from ${FALLBACK}`);
-  }catch(e){
-    console.warn(`⚠️ could not read fallback CSV ${FALLBACK}: ${e.message}`);
+if(!KEY){
+  if(FALLBACK){
+    try{
+      const txt = await fs.readFile(FALLBACK, "utf8");
+      fallback = parseCsv(txt);
+      console.log(`ℹ️ loaded fallback FEC totals from ${FALLBACK}`);
+    }catch(e){
+      console.error(`⚠️ could not read fallback CSV ${FALLBACK}: ${e.message}`);
+      process.exit(1);
+    }
+  } else {
+    console.error("FEC_API_KEY not set and no FEC_FALLBACK_CSV provided; cannot fetch donor data");
+    process.exit(1);
   }
-} else if(!KEY){
-  console.warn("⚠️ FEC_API_KEY not set and no FEC_FALLBACK_CSV provided; donors-by-member.json will be empty");
 }
 
 async function donorsFor(fecId){
