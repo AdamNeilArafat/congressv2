@@ -119,10 +119,10 @@ to backfill the dataset if the API is unavailable.
 
 ## GitHub Pages Deployment
 
-The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`. The workflow
-uses the default `GITHUB_TOKEN`, but will also accept a personal access token supplied as the
-`PAGES_TOKEN` secret. Provide a token with `repo` and `pages:write` scopes if you need to create or
-enable the Pages site; otherwise the built-in token is sufficient for routine deployments.
+The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`.
+The workflow relies solely on the built-in `GITHUB_TOKEN`, which is granted the
+`pages:write` permission for publishing. No personal access token is required for
+deployments.
 
 ## Congress.gov API curl examples
 
