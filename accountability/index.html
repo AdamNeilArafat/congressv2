@@ -41,14 +41,14 @@
     .skeleton{background:linear-gradient(90deg,#eceff3 25%,#f5f7fa 37%,#eceff3 63%); background-size:400% 100%; animation:sheen 1.2s infinite; border-radius:12px; height:300px}
     @keyframes sheen{0%{background-position:100% 0} 100%{background-position:0 0}}
 
-    .card-person{position:relative; background:var(--card); border:1px solid var(--ring); border-radius:14px; overflow:hidden; transition:box-shadow .16s, transform .16s, border-color .16s}
+    .card-person{position:relative; background:var(--card); border:1px solid var(--ring); border-radius:14px; overflow:hidden; transition:box-shadow .16s, transform .16s, border-color .16s; display:flex; align-items:flex-start}
     .card-person:hover{box-shadow:0 14px 40px rgba(13,59,102,.16); border-color:var(--ring-strong); transform:translateY(-2px)}
-    .card-person .body{padding:.75rem .9rem}
+    .card-person .body{padding:.75rem .9rem; flex:1}
     .name{font-weight:800}
     .meta{color:var(--muted); font-size:.9rem}
     .avatar{
-      width:6%; max-width:14px; height:auto; aspect-ratio:4/5;
-      object-fit:cover; background:#e6edf3; display:block; margin:.6rem auto; border-radius:10px;
+      width:80px; height:auto; aspect-ratio:4/5; flex-shrink:0;
+      object-fit:cover; background:#e6edf3; display:block; margin:.75rem; border-radius:10px;
     }
 
     /* Badge chips */
