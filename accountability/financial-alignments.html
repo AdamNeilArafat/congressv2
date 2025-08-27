@@ -363,8 +363,8 @@
     const in$ = d.in_state_dollars||0, out$ = d.out_state_dollars||0;
     const chips = computeBadges(mid, d, a, v);
 
-    const photo = m.photo || m.image || '';
     const ph = "data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='#e9eef5'/><g fill='#98a5b4'><circle cx='32' cy='24' r='12'/><rect x='10' y='40' width='44' height='16' rx='8'/></g></svg>");
+    const photo = m.photo || m.image || `https://unitedstates.github.io/images/congress/225x275/${mid}.jpg`;
 
     return {
       mid,
@@ -373,7 +373,8 @@
       party: m.party || '',
       chamber: (m.chamber || '').toLowerCase(),
       state: (m.state || '').toLowerCase(),
-      photo: photo || ph,
+      photo,
+      placeholder: ph,
       pacP, smlP, in$, out$, topIndustryKey: ti.key, topIndustryShare: ti.share,
       align: (typeof (v&&v.donor_alignment_index)==='number') ? pct(v.donor_alignment_index) : null,
       chips
@@ -387,7 +388,7 @@
     return `<tr data-mid="${d.mid}" data-name="${d.name.toLowerCase()}" data-seat="${d.seat.toLowerCase()}" data-state="${d.state}" data-chamber="${d.chamber}">
       <td>
         <div class="d-flex align-items-center gap-2">
-          <img class="avatar" src="${d.photo}" alt="${d.name} headshot" loading="lazy">
+          <img class="avatar" src="${d.photo}" alt="${d.name}" loading="lazy" onerror="this.onerror=null;this.src='${d.placeholder}'">
           <div><div class="fw-bold">${d.name}</div><div class="text-muted small">${d.party}</div></div>
         </div>
       </td>
