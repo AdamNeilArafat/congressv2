@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "us_congress_pipeline"
+version = "0.1.0"
+description = "No-API data pipeline for congressional votes and campaign finance"
+authors = [{name = "OpenAI"}]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "pyyaml",
+    "lxml",
+    "requests",
+    "sqlalchemy",
+    "python-dateutil",
+    "tqdm",
+    "matplotlib",
+]
