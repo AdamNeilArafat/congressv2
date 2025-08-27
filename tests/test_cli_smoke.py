@@ -21,6 +21,8 @@ def test_cli_smoke(tmp_path):
     assert result.exit_code == 0
     result = runner.invoke(app, ["ingest", "votes", "--from", "2023-01-01"])
     assert result.exit_code == 0
+    result = runner.invoke(app, ["ingest", "voter-history", "--path", "data/voter_history_sample.csv"])
+    assert result.exit_code == 0
     result = runner.invoke(app, ["normalize", "all"])
     assert result.exit_code == 0
     result = runner.invoke(app, ["analyze", "--window", "24m"])
