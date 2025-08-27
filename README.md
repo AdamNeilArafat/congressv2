@@ -101,6 +101,8 @@ curl "https://api.open.fec.gov/v1/schedules/schedule_e/?per_page=100&api_key=nla
 
 Bulk CSVs for full backfills are available from <https://www.fec.gov/data/browse-data/>.
 
+Alternatively, [Data.world](https://data.world/fec) hosts mirrored FEC bulk datasets that you can download or query via SQL in the browser for free.
+
 #### Congress.gov examples
 
 ```bash
