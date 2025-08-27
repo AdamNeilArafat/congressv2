@@ -64,6 +64,7 @@ def main() -> None:
         "donors-by-member.json",
         "vote-alignments.json",
         "member-awards.json",
+        "members.json",
     ]:
         shutil.copy(data_dir / name, acct_dir / name)
 
