@@ -276,7 +276,7 @@ function money(n){ return '$' + (Math.round(n||0)).toLocaleString(); }
 async function loadMembers(){
   const ver = (window.GIT_SHA || Date.now());
   try{
-    const r = await fetch(`../data/members.json?v=${ver}`, {cache:'no-store'});
+    const r = await fetch(`./data/members.json?v=${ver}`, {cache:'no-store'});
     if(r.ok){
       const local = await r.json();
       const out = [];
@@ -334,9 +334,9 @@ async function loadJSON(path, fallback={}){
   }
 }
 
-async function loadDonors(){ return loadJSON('../data/donors-by-member.json', {}); }
-async function loadAwards(){ return loadJSON('../data/member-awards.json', {}); }
-async function loadAlign(){ return loadJSON('../data/vote-alignments.json', {}); }
+async function loadDonors(){ return loadJSON('./data/donors-by-member.json', {}); }
+async function loadAwards(){ return loadJSON('./data/member-awards.json', {}); }
+async function loadAlign(){ return loadJSON('./data/vote-alignments.json', {}); }
 
 function topIndustry(d){
   if(!d || !d.industries) return {key:'—', share:0};
