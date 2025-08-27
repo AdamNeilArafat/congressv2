@@ -18,6 +18,8 @@ const sinceISO = new Date(Date.now() - 30*24*60*60*1000).toISOString(); // last 
 const proxy = process.env.https_proxy || process.env.http_proxy;
 const agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
 
+const withKey = (url) => `${url}${url.includes('?') ? '&' : '?'}api_key=${KEY}`;
+
 async function getJSON(url, attempt=1){
   const r = await fetch(url, {
     agent,
@@ -59,9 +61,8 @@ function offendersFromRoll(roll){
 
 async function collectChamber(chamber){
   const out = {};
-  // The API key is provided via header, so avoid leaking it in the request URL
-  // which could be logged or cached. Rely solely on the header for auth.
-  let url = `${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(sinceISO)}&format=json&limit=250`;
+  // Include the API key in the query string so it works with endpoints that require it.
+  let url = withKey(`${BASE}/votes/${chamber}?fromDateTime=${encodeURIComponent(sinceISO)}&format=json&limit=250`);
   while (url) {
     const data = await getJSON(url);
     for (const v of data.votes || []) {
@@ -77,7 +78,7 @@ async function collectChamber(chamber){
       };
     }
     // follow pagination if present
-    url = data?.pagination?.next || "";
+    url = data?.pagination?.next ? withKey(data.pagination.next) : "";
   }
   return out;
 }
