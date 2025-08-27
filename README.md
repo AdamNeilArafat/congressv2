@@ -21,6 +21,17 @@ export CONGRESS_DATA_DIR="data/sources/unitedstates-congress"
 export FEC_DATA_DIR="data/sources/openFEC"
 ```
 
+### Voteview ideology scores
+
+Download DW-NOMINATE scores for historical and current members of Congress:
+
+```bash
+node scripts/pull-voteview.mjs
+```
+
+The script retrieves the combined House and Senate member file from [Voteview](https://voteview.com/data) and writes
+`data/voteview_members.csv`, which can be joined with campaign finance or roll-call data via bioguide identifiers.
+
 ## Run End-to-End
 
 ```bash
