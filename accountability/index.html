@@ -47,7 +47,7 @@
     .name{font-weight:800}
     .meta{color:var(--muted); font-size:.9rem}
     .avatar{
-      width:94%; max-width:220px; height:auto; aspect-ratio:4/5;
+      width:24%; max-width:55px; height:auto; aspect-ratio:4/5;
       object-fit:cover; background:#e6edf3; display:block; margin:.6rem auto; border-radius:10px;
     }
 
@@ -615,6 +615,15 @@ document.getElementById('resetFilters').addEventListener('click', ()=>{
 (async function init(){
   MEMBERS = await loadMembers();
   [DONORS, AWARDS, ALIGN] = await Promise.all([loadDonors(), loadAwards(), loadAlign()]);
+  const donorCount = Object.keys(DONORS).length;
+  const awardCount = Object.keys(AWARDS).length;
+  const alignCount = Object.keys(ALIGN).length;
+  console.log(`Loaded ${MEMBERS.length} members, ${donorCount} donor records, ${awardCount} award records, ${alignCount} alignment records.`);
+  const badgeMembers = Object.values(AWARDS).filter(a=>Array.isArray(a.badges)&&a.badges.length).length;
+  console.log(`${badgeMembers} members have badges.`);
+  if(!MEMBERS.length || !donorCount || !awardCount || !alignCount){
+    console.warn('One or more datasets failed to load fully.');
+  }
   buildFilters();
   joinData();
   render();

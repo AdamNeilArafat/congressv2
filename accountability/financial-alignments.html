@@ -301,6 +301,16 @@
     tryJSON('../data/member-awards.json','demo-awards'),
     tryJSON('../data/vote-alignments.json','demo-align')
   ]);
+  const memberCount = Array.isArray(members) ? members.length : Object.keys(members||{}).length;
+  const donorCount = Object.keys(donorsByMember||{}).length;
+  const awardCount = Object.keys(awardsByMember||{}).length;
+  const alignCount = Object.keys(voteAlignByMember||{}).length;
+  console.log(`Loaded ${memberCount} members, ${donorCount} donor records, ${awardCount} award records, ${alignCount} vote alignment records.`);
+  const badgeMembers = Object.values(awardsByMember||{}).filter(a=>Array.isArray(a.badges)&&a.badges.length).length;
+  console.log(`${badgeMembers} members have badges.`);
+  if(!memberCount || !donorCount || !awardCount || !alignCount){
+    console.warn('One or more datasets failed to load fully.');
+  }
   $('#load-status').textContent = 'Data loaded.';
 
   function pct(n){ return Math.round((n||0)*100); }
