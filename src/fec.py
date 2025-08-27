@@ -102,6 +102,18 @@ def fetch_candidate_totals(candidate_id: str, cycle: int) -> List[Dict]:
         Two-year election cycle.
     """
     settings = get_settings()
+    if settings.fec_data_dir:
+        path = Path(settings.fec_data_dir) / "candidate_totals.csv"
+        if path.exists():
+            with path.open() as fh:
+                reader = csv.DictReader(fh)
+                return [
+                    r
+                    for r in reader
+                    if r.get("candidate_id") == candidate_id
+                    and str(r.get("cycle")) == str(cycle)
+                ]
+
     url = f"{API_URL}/candidate/totals/"
     params = {
         "api_key": settings.fec_api_key,
