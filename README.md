@@ -59,10 +59,66 @@ variable to a CSV file containing `candidate_id,total_receipts,individual_contri
 pac_contributions,transfers_from_other_authorized_committee` columns. The
 `scripts/pull-donors.mjs` script reads this file instead of calling the API.
 
+### Sample API calls
+
+The pipeline primarily relies on two public data sources:
+
+* **OpenFEC** for campaign finance data via the [OpenFEC API](https://api.open.fec.gov/developers/) and the [fecgov/openFEC](https://github.com/fecgov/openFEC) bulk downloads as a fallback.
+* **Congress.gov** for legislative data via the [Congress.gov API](https://api.congress.gov) and the [LibraryOfCongress/api.congress.gov](https://github.com/LibraryOfCongress/api.congress.gov) project or [GovInfo BILLSTATUS XML](https://www.govinfo.gov/bulkdata/BILLSTATUS) as a fallback.
+
+Either service can be queried directly when experimenting or building new ingestion steps.
+
+#### OpenFEC examples
+
+```bash
+# Candidates (basic)
+curl "https://api.open.fec.gov/v1/candidates/?page=1&per_page=100&api_key=nlaFzcVKa7YQrbCJvkZFRDNcZD5rAdA0stgXSNp5"
+
+# Candidate totals (money in/out by cycle)
+curl "https://api.open.fec.gov/v1/candidate/H0WA10149/totals/?cycle=2024&api_key=nlaFzcVKa7YQrbCJvkZFRDNcZD5rAdA0stgXSNp5"
+
+# Itemized contributions (Schedule A) to a committee
+curl "https://api.open.fec.gov/v1/schedules/schedule_a/?committee_id=C00XXXXXX&two_year_transaction_period=2024&per_page=100&api_key=nlaFzcVKa7YQrbCJvkZFRDNcZD5rAdA0stgXSNp5"
+
+# Independent expenditures (Schedule E)
+curl "https://api.open.fec.gov/v1/schedules/schedule_e/?per_page=100&api_key=nlaFzcVKa7YQrbCJvkZFRDNcZD5rAdA0stgXSNp5"
+```
+
+Bulk CSVs for full backfills are available from <https://www.fec.gov/data/browse-data/>.
+
+#### Congress.gov examples
+
+```bash
+# Latest bills (follow pagination.next)
+curl "https://api.congress.gov/v3/bill?format=json&limit=250&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+
+# Bill details (item)
+curl "https://api.congress.gov/v3/bill/119/hr/2808?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+
+# Sub-resources you'll likely use:
+curl "https://api.congress.gov/v3/bill/119/hr/2808/actions?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+curl "https://api.congress.gov/v3/bill/119/hr/2808/cosponsors?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+curl "https://api.congress.gov/v3/bill/119/hr/2808/committees?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+curl "https://api.congress.gov/v3/bill/119/hr/2808/summary?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+curl "https://api.congress.gov/v3/bill/119/hr/2808/subjects?format=json&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+
+# Members + their bill relationships
+curl "https://api.congress.gov/v3/member?format=json&limit=250&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+curl "https://api.congress.gov/v3/member/B001135/sponsored-legislation?format=json&limit=250&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+
+# House roll call votes
+curl "https://api.congress.gov/v3/house-vote?format=json&limit=100&api_key=FhFEPhUSuCNrTbbxyOngBBqedbfTA9SeTCtTy6Vz"
+```
+
+Rate limits are roughly 5,000 requests per hour; use `pagination.next` and
+`fromDateTime`/`toDateTime` parameters for incremental loads. Bulk bill status
+XML files can be downloaded from <https://www.govinfo.gov/bulkdata/BILLSTATUS>
+to backfill the dataset if the API is unavailable.
+
 ## GitHub Pages Deployment
 
-The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`. The default
-`GITHUB_TOKEN` cannot create or enable a Pages site, so generate a personal access token with `repo`
-and `pages:write` scopes and add it as a repository secret named `PAGES_TOKEN`. The workflow uses
-this token to configure and deploy the site automatically.
+The project deploys its static site with GitHub Pages via `.github/workflows/pages.yml`. The workflow
+uses the default `GITHUB_TOKEN`, but will also accept a personal access token supplied as the
+`PAGES_TOKEN` secret. Provide a token with `repo` and `pages:write` scopes if you need to create or
+enable the Pages site; otherwise the built-in token is sufficient for routine deployments.
 
