@@ -4,7 +4,7 @@ from __future__ import annotations
 import csv
 from datetime import datetime
 from pathlib import Path
-from typing import Iterable, List
+from typing import List
 
 from .models import VoterHistory
 

@@ -116,7 +116,6 @@ class Badge(SQLModel, table=True):
     computed_at: datetime = Field(default_factory=datetime.utcnow)
 
 
-
 class CongressionalRecord(SQLModel, table=True):
     record_id: str = Field(primary_key=True)
     title: str
