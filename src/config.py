@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     fec_api_key: str = ""
     congress_api_key: str = ""
     db_url: str = "sqlite:///campaign.db"
+    congress_data_dir: str = ""
+    fec_data_dir: str = ""
 
     class Config:
         env_file = ".env"

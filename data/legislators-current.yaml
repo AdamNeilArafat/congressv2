@@ -1,0 +1,10 @@
+- id:
+    bioguide: A000360
+  name:
+    first: Alice
+    last: Anderson
+  terms:
+    - type: rep
+      state: CA
+      party: D
+      district: 1

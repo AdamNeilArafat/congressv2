@@ -8,6 +8,17 @@ This repo provides a reproducible Python pipeline to fetch FEC data, roll call v
 make dev
 ```
 
+### GitHub data sources
+
+Clone upstream repositories for legislative and finance data and point the
+pipeline at them with environment variables:
+
+```bash
+python scripts/pull_sources.py
+export CONGRESS_DATA_DIR="data/sources/unitedstates-congress"
+export FEC_DATA_DIR="data/sources/openFEC"
+```
+
 ## Run End-to-End
 
 ```bash
